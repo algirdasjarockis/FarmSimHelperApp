@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmSimHelper.Android", "FarmSimHelper\FarmSimHelper.Android\FarmSimHelper.Android.csproj", "{B61ED3AB-CF4B-47A2-BEA1-5E5C159EA9E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmSimHelper", "FarmSimHelper\FarmSimHelper\FarmSimHelper.csproj", "{B71BFE25-E3C6-4647-97D3-7135A4C2335F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B61ED3AB-CF4B-47A2-BEA1-5E5C159EA9E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B61ED3AB-CF4B-47A2-BEA1-5E5C159EA9E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B61ED3AB-CF4B-47A2-BEA1-5E5C159EA9E9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B61ED3AB-CF4B-47A2-BEA1-5E5C159EA9E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B61ED3AB-CF4B-47A2-BEA1-5E5C159EA9E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B61ED3AB-CF4B-47A2-BEA1-5E5C159EA9E9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B71BFE25-E3C6-4647-97D3-7135A4C2335F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B71BFE25-E3C6-4647-97D3-7135A4C2335F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B71BFE25-E3C6-4647-97D3-7135A4C2335F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B71BFE25-E3C6-4647-97D3-7135A4C2335F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B71BFE25-E3C6-4647-97D3-7135A4C2335F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B71BFE25-E3C6-4647-97D3-7135A4C2335F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE977D6D-7475-4DB9-B24F-86750548B780}
+	EndGlobalSection
+EndGlobal
