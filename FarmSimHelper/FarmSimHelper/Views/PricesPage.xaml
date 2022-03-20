@@ -7,20 +7,47 @@
              Title="{Binding Title}"
 >
     <ContentPage.Content>
-        <StackLayout Margin="0" Padding="0" Background="Red">
-            <syncfusion:SfDataGrid ItemsSource="{Binding Items}"
-                               AllowPullToRefresh="True"
-                               IsBusy="{Binding IsBusy, Mode=TwoWay}"
-                               AutoGenerateColumns="False"
-                               AllowSorting="True"
-                               ColumnSizer="Auto"
-                               HorizontalOptions="StartAndExpand"
-                               >
+        <StackLayout Margin="0" Padding="0" Background="Gray" Orientation="Vertical">
+            <StackLayout Orientation="Horizontal" Margin="10,10,10,0" HorizontalOptions="Center">
+                <Button Text="Easy" Command="{Binding RecalculateCommand}" CommandParameter="easy"/>
+                <Button Text="Normal" Command="{Binding RecalculateCommand}" CommandParameter="normal"/>
+                <Button Text="Hard" Command="{Binding RecalculateCommand}" CommandParameter="hard"/>
+            </StackLayout>
+            <syncfusion:SfDataGrid 
+                ItemsSource="{Binding Items}"
+                IsBusy="{Binding IsBusy, Mode=TwoWay}"
+                AutoGenerateColumns="False"
+                AllowSorting="True"
+                AllowResizingColumn="True"
+                ColumnSizer="Auto"
+                MinimumWidthRequest="600"
+                HorizontalOptions="CenterAndExpand">
+                <syncfusion:SfDataGrid.GridStyle>
+                    <syncfusion:DefaultStyle 
+                        HeaderBackgroundColor="{StaticResource Primary}" HeaderForegroundColor="White"                    
+                        GridCellBorderColor="{StaticResource Primary}"
+                        GridCellBorderWidth="0"
+                        AlternatingRowColor="{StaticResource Secondary}"
+                        />
+                </syncfusion:SfDataGrid.GridStyle>
                 <syncfusion:SfDataGrid.Columns>
-                    <syncfusion:GridTextColumn HeaderText="Product" MappingName="ProductName" Width="180"/>
-                    <syncfusion:GridNumericColumn HeaderText="Best" MappingName="BestPrice" Width="80" Format="#"/>
-                    <syncfusion:GridNumericColumn HeaderText="Good" MappingName="GoodPrice" Width="80"/>
-                    <syncfusion:GridNumericColumn HeaderText="Average" MappingName="AveragePrice" Width="80"/>
+                    <syncfusion:GridTextColumn 
+                        MappingName="ProductName" HeaderText="Product"
+                        HeaderFontAttribute="Bold"
+                        CellTextSize="12" TextAlignment="End"
+                        Width="180"/>
+                    <syncfusion:GridNumericColumn 
+                        MappingName="BestPrice" HeaderText="Best" 
+                        HeaderFontAttribute="Bold"
+                        TextAlignment="Center" 
+                        Format="D"
+                        Width="100"/>
+                    <syncfusion:GridNumericColumn 
+                        MappingName="AveragePrice" HeaderText="Average" 
+                        HeaderFontAttribute="Bold"
+                        TextAlignment="Center" 
+                        Format="D"
+                        Width="100"/>
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
         </StackLayout>

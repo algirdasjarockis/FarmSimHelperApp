@@ -11,6 +11,7 @@ namespace FarmSimHelper.Models
         public int AveragePrice { get; set; }
         public int GoodPrice { get; set; }
         public int BestPrice { get; set; }
+        public ProductInfo Product { get; set; }
         public int[] BestMonths { get; set; }
 
         public SellingPrice ()

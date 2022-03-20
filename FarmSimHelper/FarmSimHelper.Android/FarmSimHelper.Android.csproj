@@ -97,13 +97,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>cd "$(ProjectDir)" 
-
-SyncfusionLicenseRegister.bat PreBuild ../FarmSimHelper/App.xaml.cs</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>cd "$(ProjectDir)" 
-
-SyncfusionLicenseRegister.bat PostBuild ../FarmSimHelper/App.xaml.cs</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

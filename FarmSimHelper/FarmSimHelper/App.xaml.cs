@@ -22,8 +22,11 @@ namespace FarmSimHelper
             DependencyService.Register<MockDataStore>();
 
             var builder = new ContainerBuilder();
-            builder.Register(c => new SellPriceLoader(new HttpClient(), new ProductPriceCalculator())).As<ISellPriceLoader>();
-            builder.RegisterType<PricesViewModel>();
+            //builder.Register(c => new SellPriceLoader(new HttpClient(), new ProductPriceCalculator())).As<ISellPriceLoader>();
+            builder.RegisterType<ProductPriceCalculator>().As<IProductPriceCalculator>();
+            builder.RegisterType<SellPriceLoader>().As<ISellPriceLoader>();
+            builder.RegisterType<HttpClient>();
+            builder.RegisterType<PricesViewModel>().SingleInstance();
 
             container = builder.Build();
             Scope = container.BeginLifetimeScope();

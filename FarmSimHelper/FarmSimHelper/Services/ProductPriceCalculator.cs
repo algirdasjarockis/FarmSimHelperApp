@@ -13,9 +13,17 @@ namespace FarmSimHelper.Services
             {
                 ProductName = productInfo.Name,
                 AveragePrice = (int)Math.Round(CalculateAveragePrice(productInfo) * baseFactor),
-                GoodPrice = (int)Math.Round(CalculateGoodPrice(productInfo) * baseFactor),
                 BestPrice = (int)Math.Round(CalculateBestPrice(productInfo) * baseFactor),
+                Product = productInfo
             };
+
+            return price;
+        }
+
+        public SellingPrice RecalculateSellingPrice(SellingPrice price, float baseFactor)
+        {
+            price.AveragePrice = (int)Math.Round(CalculateAveragePrice(price.Product) * baseFactor);
+            price.BestPrice = (int)Math.Round(CalculateBestPrice(price.Product) * baseFactor);
 
             return price;
         }
@@ -33,12 +41,22 @@ namespace FarmSimHelper.Services
 
         private int CalculateBestPrice(ProductInfo product)
         {
-            return 0;
+            decimal max = 0;
+            foreach (PriceFactor factor in product.PriceFactors)
+            {
+                decimal price = CalculateBasePrice(product.PricePerLiter, factor.Factor);
+                if (price > max)
+                {
+                    max = price;
+                }
+            }
+
+            return (int)Math.Round(max);
         }
 
-        private int CalculateGoodPrice(ProductInfo product)
+        private decimal CalculateBasePrice(decimal pricePerLiter, decimal factor)
         {
-            return 0;
+            return pricePerLiter * factor * 1000;
         }
     }
 }

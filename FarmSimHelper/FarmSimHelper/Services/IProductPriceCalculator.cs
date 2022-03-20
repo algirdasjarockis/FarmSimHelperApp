@@ -8,5 +8,6 @@ namespace FarmSimHelper.Services
     public interface IProductPriceCalculator
     {
         SellingPrice CalculateSellingPrice(ProductInfo productInfo, float baseFactor);
+        SellingPrice RecalculateSellingPrice(SellingPrice price, float baseFactor);
     }
 }
