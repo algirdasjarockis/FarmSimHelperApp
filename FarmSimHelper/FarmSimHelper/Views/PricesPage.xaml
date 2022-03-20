@@ -4,8 +4,15 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
              x:Class="FarmSimHelper.Views.PricesPage"
              xmlns:vm="clr-namespace:FarmSimHelper.ViewModels"
+             xmlns:conv="clr-namespace:FarmSimHelper.Converters"
              Title="{Binding Title}"
 >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:MonthConverter x:Key="monthConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout Margin="0" Padding="0" Background="Gray" Orientation="Vertical">
             <StackLayout Orientation="Horizontal" Margin="10,10,10,0" HorizontalOptions="Center">
@@ -41,13 +48,20 @@
                         HeaderFontAttribute="Bold"
                         TextAlignment="Center" 
                         Format="D"
-                        Width="100"/>
+                        Width="90"/>
                     <syncfusion:GridNumericColumn 
                         MappingName="AveragePrice" HeaderText="Average" 
                         HeaderFontAttribute="Bold"
                         TextAlignment="Center" 
                         Format="D"
-                        Width="100"/>
+                        Width="90"/>
+                    <syncfusion:GridTextColumn 
+                        MappingName="BestMonths" HeaderText="Best months"
+                        DisplayBinding="{Binding BestMonths, Converter={StaticResource monthConverter}}"
+                        HeaderFontAttribute="Bold"
+                        CellTextSize="12" TextAlignment="Center"
+                        Width="100"
+                        />
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
         </StackLayout>

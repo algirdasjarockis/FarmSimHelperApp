@@ -50,7 +50,7 @@ namespace FarmSimHelper.Services
                     {
                         factors.Add(new PriceFactor()
                         {
-                            Month = byte.Parse(factor.Attribute("period").Value),
+                            Month = ConvertToNormalMonth(byte.Parse(factor.Attribute("period").Value)),
                             Factor = decimal.Parse(factor.Attribute("value").Value)
                         });
                     }
@@ -71,6 +71,20 @@ namespace FarmSimHelper.Services
             }
             
             return await Task.FromResult(items);
+        }
+
+        private byte ConvertToNormalMonth(byte period)
+        {
+            byte step = 2;
+            byte totalMonths = 12;
+            byte newMonth = (byte)(period + step);
+            
+            if (newMonth > totalMonths)
+            {
+                newMonth = (byte)(newMonth - totalMonths);
+            }
+
+            return newMonth;
         }
     }
 }

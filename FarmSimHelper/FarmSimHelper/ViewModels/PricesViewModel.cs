@@ -45,7 +45,7 @@ namespace FarmSimHelper.ViewModels
 
         async void ExecuteRecalculateCommand(string economyDifficulty)
         {
-            float factor = 1.0f;
+            float factor;
             switch (economyDifficulty)
             {
                 case "easy":

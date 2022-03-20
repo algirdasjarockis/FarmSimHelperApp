@@ -14,7 +14,8 @@ namespace FarmSimHelper.Services
                 ProductName = productInfo.Name,
                 AveragePrice = (int)Math.Round(CalculateAveragePrice(productInfo) * baseFactor),
                 BestPrice = (int)Math.Round(CalculateBestPrice(productInfo) * baseFactor),
-                Product = productInfo
+                Product = productInfo,
+                BestMonths = FindBestMonths(productInfo)
             };
 
             return price;
@@ -57,6 +58,14 @@ namespace FarmSimHelper.Services
         private decimal CalculateBasePrice(decimal pricePerLiter, decimal factor)
         {
             return pricePerLiter * factor * 1000;
+        }
+
+        private int[] FindBestMonths(ProductInfo product)
+        {
+            int count = product.PriceFactors.Count;
+            product.PriceFactors.Sort();
+
+            return new int[] { product.PriceFactors[count - 1].Month, product.PriceFactors[count - 2].Month };
         }
     }
 }
