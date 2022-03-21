@@ -29,7 +29,7 @@ namespace FarmSimHelper.Services
             this.productPriceCalculator = calculator;
         }
 
-        public async Task<IEnumerable<SellingPrice>> LoadSellingPrices()
+        public async Task<IEnumerable<SellingPrice>> LoadSellingPrices(float baseFactor = 1.0f)
         {
             List<SellingPrice> items = new List<SellingPrice>();
             try
@@ -69,7 +69,7 @@ namespace FarmSimHelper.Services
                         PriceFactors = factors,
                     };
 
-                    var sellingPrice = productPriceCalculator.CalculateSellingPrice(productInfo, 1.0f);
+                    var sellingPrice = productPriceCalculator.CalculateSellingPrice(productInfo, baseFactor);
                     sellingPrice.ProductImage = ImageSource.FromResource($"FarmSimHelper.Resources.ProductIcons.{productElement.ProductName.ToLower()}.png");
                     items.Add(sellingPrice);
                 }

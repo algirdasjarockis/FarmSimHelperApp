@@ -8,6 +8,6 @@ namespace FarmSimHelper.Services
 {
     public interface ISellPriceLoader
     {
-        Task<IEnumerable<SellingPrice>> LoadSellingPrices();
+        Task<IEnumerable<SellingPrice>> LoadSellingPrices(float baseFactor = 1.0f);
     }
 }

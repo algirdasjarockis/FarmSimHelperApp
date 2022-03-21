@@ -18,23 +18,23 @@
     <ContentPage.Content>
         <StackLayout Margin="0" Padding="0" Orientation="Vertical">
             <StackLayout Orientation="Horizontal" Margin="10,10,10,0" HorizontalOptions="Center">
-                <Button Text="Easy" Command="{Binding RecalculateCommand}" CommandParameter="easy">
+                <Button Text="Easy" Command="{Binding RecalculateCommand}" CommandParameter="{x:Static vm:EconomyDifficulty.Easy}">
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding SelectedEconomyDifficulty}" Value="easy">
+                        <DataTrigger TargetType="Button" Binding="{Binding SelectedEconomyDifficulty}" Value="{x:Static vm:EconomyDifficulty.Easy}">
                             <Setter Property="BackgroundColor" Value="{StaticResource Accent}" />
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
-                <Button Text="Normal" Command="{Binding RecalculateCommand}" CommandParameter="normal">
+                <Button Text="Normal" Command="{Binding RecalculateCommand}" CommandParameter="{x:Static vm:EconomyDifficulty.Normal}">
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding SelectedEconomyDifficulty}" Value="normal">
+                        <DataTrigger TargetType="Button" Binding="{Binding SelectedEconomyDifficulty}" Value="{x:Static vm:EconomyDifficulty.Normal}">
                             <Setter Property="BackgroundColor" Value="{StaticResource Accent}" />
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
-                <Button Text="Hard" Command="{Binding RecalculateCommand}" CommandParameter="hard">
+                <Button Text="Hard" Command="{Binding RecalculateCommand}" CommandParameter="{x:Static vm:EconomyDifficulty.Hard}">
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding SelectedEconomyDifficulty}" Value="hard">
+                        <DataTrigger TargetType="Button" Binding="{Binding SelectedEconomyDifficulty}" Value="{x:Static vm:EconomyDifficulty.Hard}">
                             <Setter Property="BackgroundColor" Value="{StaticResource Accent}" />
                         </DataTrigger>
                     </Button.Triggers>

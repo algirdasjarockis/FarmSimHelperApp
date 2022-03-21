@@ -9,30 +9,39 @@ using Xamarin.Forms;
 
 namespace FarmSimHelper.ViewModels
 {
+    public enum EconomyDifficulty
+    {
+        Easy,
+        Normal,
+        Hard
+    }
+
     public class PricesViewModel : BaseViewModel
     {
-        string selectedEconomyDifficulty;
+        EconomyDifficulty selectedEconomyDifficulty;
         readonly ISellPriceLoader priceLoader;
         readonly IProductPriceCalculator priceCalculator;
+
         public ObservableCollection<SellingPrice> Items { get; private set; }
-        public string SelectedEconomyDifficulty 
+        public EconomyDifficulty SelectedEconomyDifficulty 
         {
             get => selectedEconomyDifficulty;
             set { SetProperty(ref selectedEconomyDifficulty, value); }
         }
+
         public Command LoadItemsCommand { get; private set; }
-        public Command<string> RecalculateCommand { get; private set; }
+        public Command<EconomyDifficulty> RecalculateCommand { get; private set; }
 
         public PricesViewModel(ISellPriceLoader priceLoader, IProductPriceCalculator priceCalculator)
         {
             this.priceLoader = priceLoader;
             this.priceCalculator = priceCalculator;
-            SelectedEconomyDifficulty = "hard";
+            SelectedEconomyDifficulty = EconomyDifficulty.Normal;
             Title = "Average Selling Prices";
             Items = new ObservableCollection<SellingPrice>();
 
             LoadItemsCommand = new Command(async () => await ExecuteLoadCommand());
-            RecalculateCommand = new Command<string>(ExecuteRecalculateCommand);
+            RecalculateCommand = new Command<EconomyDifficulty>(ExecuteRecalculateCommand);
         }
 
         async Task ExecuteLoadCommand()
@@ -40,7 +49,7 @@ namespace FarmSimHelper.ViewModels
             IsBusy = true;
             Items.Clear();
 
-            var items = await this.priceLoader.LoadSellingPrices();
+            var items = await this.priceLoader.LoadSellingPrices(GetFactorByCurrentDifficulty());
             foreach (var item in items)
             {
                 Items.Add(item);
@@ -49,17 +58,25 @@ namespace FarmSimHelper.ViewModels
             IsBusy = false;
         }
 
-        async void ExecuteRecalculateCommand(string economyDifficulty)
+        async void ExecuteRecalculateCommand(EconomyDifficulty economyDifficulty)
+        {
+            SelectedEconomyDifficulty = economyDifficulty;
+
+            for (int i = 0; i < Items.Count; i++)
+            {
+                Items[i] = priceCalculator.RecalculateSellingPrice(Items[i], GetFactorByCurrentDifficulty());
+            }
+        }
+
+        float GetFactorByCurrentDifficulty()
         {
             float factor;
-
-            SelectedEconomyDifficulty = economyDifficulty;
-            switch (economyDifficulty)
+            switch (SelectedEconomyDifficulty)
             {
-                case "easy":
+                case EconomyDifficulty.Easy:
                     factor = 3.0f;
                     break;
-                case "normal":
+                case EconomyDifficulty.Normal:
                     factor = 1.8f;
                     break;
                 default:
@@ -67,10 +84,7 @@ namespace FarmSimHelper.ViewModels
                     break;
             }
 
-            for (int i = 0; i < Items.Count; i++)
-            {
-                Items[i] = priceCalculator.RecalculateSellingPrice(Items[i], factor);
-            }
+            return factor;
         }
 
         public async void OnAppearing()
