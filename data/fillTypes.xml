@@ -1197,4 +1197,91 @@
         <image      hud     ="$dataS/menu/hud/fillTypes/hud_fill_furniture.png" />
         <pallet     filename="$data/objects/pallets/furnitureStackPallet/furnitureStackPallet.xml" />
     </fillType>
+    <fillType name="WHEATBEER" title="$l10n_filltype_wheatbeer" showOnPriceTable="true">
+        <physics massPerLiter="1" maxPhysicalSurfaceAngle="38" />
+        <image hud     ="hud/hud_fill_wheatbeer.png" />
+        <pallet filename="objects/Pallet_WheatBeer/PalletWheatBeer.xml" />
+        <economy pricePerLiter="1.96">
+            <factors>
+                <factor period="1"  value="0.50" />
+                <factor period="2"  value="0.70" />
+                <factor period="3"  value="0.90" />
+                <factor period="4"  value="0.90" />
+                <factor period="5"  value="1.00" />
+                <factor period="6"  value="1.30" />
+                <factor period="7"  value="1.20" />
+                <factor period="8"  value="1.00" />
+                <factor period="9"  value="1.00" />
+                <factor period="10" value="0.80" />
+                <factor period="11" value="0.75" />
+                <factor period="12" value="0.60" />
+            </factors>
+        </economy>
+    </fillType>
+    
+    <fillType name="BARLEYBEER" title="$l10n_filltype_barleybeer" showOnPriceTable="true">
+        <physics massPerLiter="1" maxPhysicalSurfaceAngle="38" />
+        <image hud     ="hud/hud_fill_barleybeer.png" />
+        <pallet filename="objects/Pallet_BarleyBeer/PalletBarleyBeer.xml" />
+        <economy pricePerLiter="2.00">
+            <factors>
+                <factor period="1"  value="0.50" />
+                <factor period="2"  value="0.70" />
+                <factor period="3"  value="0.90" />
+                <factor period="4"  value="0.90" />
+                <factor period="5"  value="1.00" />
+                <factor period="6"  value="1.30" />
+                <factor period="7"  value="1.20" />
+                <factor period="8"  value="1.00" />
+                <factor period="9"  value="1.00" />
+                <factor period="10" value="0.80" />
+                <factor period="11" value="0.75" />
+                <factor period="12" value="0.60" />
+            </factors>
+        </economy>
+    </fillType>
+
+    <fillType name="HONEYBEER" title="$l10n_filltype_honeybeer" showOnPriceTable="true">
+        <physics massPerLiter="1" maxPhysicalSurfaceAngle="38" />
+        <image hud     ="hud/hud_fill_honeybeer.png" />
+        <pallet filename="objects/Pallet_HoneyBeer/PalletHoneyBeer.xml" />
+        <economy pricePerLiter="2.27">
+            <factors>
+                <factor period="1"  value="0.95" />
+                <factor period="2"  value="0.70" />
+                <factor period="3"  value="0.60" />
+                <factor period="4"  value="0.50" />
+                <factor period="5"  value="0.46" />
+                <factor period="6"  value="0.40" />
+                <factor period="7"  value="0.55" />
+                <factor period="8"  value="0.80" />
+                <factor period="9"  value="0.95" />
+                <factor period="10" value="1.30" />
+                <factor period="11" value="1.10" />
+                <factor period="12" value="1.00" />
+            </factors>
+        </economy>
+    </fillType>
+    
+    <fillType name="STRAWBERRYBEER" title="$l10n_filltype_strawberrybeer" showOnPriceTable="true">
+        <physics massPerLiter="1" maxPhysicalSurfaceAngle="38" />
+        <image hud     ="hud/hud_fill_strawberrybeer.png" />
+        <pallet filename="objects/Pallet_StrawberryBeer/PalletStrawberryBeer.xml" />
+        <economy pricePerLiter="2.12">
+            <factors>
+                <factor period="1"  value="0.40" />
+                <factor period="2"  value="0.50" />
+                <factor period="3"  value="0.60" />
+                <factor period="4"  value="0.80" />
+                <factor period="5"  value="0.96" />
+                <factor period="6"  value="1.00" />
+                <factor period="7"  value="1.10" />
+                <factor period="8"  value="1.25" />
+                <factor period="9"  value="1.00" />
+                <factor period="10" value="0.60" />
+                <factor period="11" value="0.55" />
+                <factor period="12" value="0.40" />
+            </factors>
+        </economy>
+    </fillType>
 </fillTypes>
