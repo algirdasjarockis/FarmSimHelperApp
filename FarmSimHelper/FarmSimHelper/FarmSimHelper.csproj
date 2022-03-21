@@ -7,6 +7,62 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\ProductIcons\barley.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\barleybeer.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\boards.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\bread.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\butter.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\cake.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\canola_oil.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\canola.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\cereal.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\chaff.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\cheese.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\chocolate.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\clothes.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\honeybeer.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\maize.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\cotton.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\egg.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\fabric.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\flour.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\furniture.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\grapejuice.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\grape.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\grass.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\drygrass.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\honey.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\lettuce.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\manure.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\milk.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\oat.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\olive_oil.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\olive.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\potato.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\raisins.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\silage.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\slurry.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\sorghum.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\soybean.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\stones.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\straw.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\strawberry.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\strawberrybeer.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\sugarbeet_cut.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\sugarbeet.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\sugar.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\sugarcane.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\sunflower_oil.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\sunflower.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\tomato.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\wheat.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\wheatbeer.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\woodchips.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\wood.png" />
+    <EmbeddedResource Include="Resources\ProductIcons\wool.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.4.0.56" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />  

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using FarmSimHelper.Models;
+using Xamarin.Forms;
 
 namespace FarmSimHelper.Services
 {
@@ -15,6 +16,12 @@ namespace FarmSimHelper.Services
         private readonly string sourceUrl = @"https://raw.githubusercontent.com/algirdasjarockis/FarmSimHelperApp/master/data/fillTypes.xml";
         private readonly HttpClient client;
         private readonly IProductPriceCalculator productPriceCalculator;
+        private readonly List<string> ignoredProducts = new List<string>()
+        {
+            "GRASS_WINDROW",
+            "DRYGRASS_WINDROW",
+            "WATER"
+        };
 
         public SellPriceLoader(HttpClient client, IProductPriceCalculator calculator)
         {
@@ -42,7 +49,7 @@ namespace FarmSimHelper.Services
 
                 foreach (var productElement in query)
                 {
-                    if (productElement.PriceFactors == null)
+                    if (productElement.PriceFactors == null || ignoredProducts.Contains(productElement.ProductName))
                         continue;
 
                     List<PriceFactor> factors = new List<PriceFactor>();
@@ -62,7 +69,9 @@ namespace FarmSimHelper.Services
                         PriceFactors = factors,
                     };
 
-                    items.Add(productPriceCalculator.CalculateSellingPrice(productInfo, 1.0f));
+                    var sellingPrice = productPriceCalculator.CalculateSellingPrice(productInfo, 1.0f);
+                    sellingPrice.ProductImage = ImageSource.FromResource($"FarmSimHelper.Resources.ProductIcons.{productElement.ProductName.ToLower()}.png");
+                    items.Add(sellingPrice);
                 }
             }
             catch (HttpRequestException exception)

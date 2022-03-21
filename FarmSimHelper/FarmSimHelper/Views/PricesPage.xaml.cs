@@ -25,6 +25,11 @@ namespace FarmSimHelper.Views
             }
 
             BindingContext = viewModel;
+
+            // NOTE: use for debugging, not in released app code!
+            //var assembly = typeof(PricesPage).Assembly;
+            //foreach (var res in assembly.GetManifestResourceNames()) 
+            //	System.Console.WriteLine("found resource: " + res);
         }
 
         protected override void OnAppearing()
