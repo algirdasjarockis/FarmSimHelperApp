@@ -16,11 +16,29 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Margin="0" Padding="0" Background="Gray" Orientation="Vertical">
+        <StackLayout Margin="0" Padding="0" Orientation="Vertical">
             <StackLayout Orientation="Horizontal" Margin="10,10,10,0" HorizontalOptions="Center">
-                <Button Text="Easy" Command="{Binding RecalculateCommand}" CommandParameter="easy"/>
-                <Button Text="Normal" Command="{Binding RecalculateCommand}" CommandParameter="normal"/>
-                <Button Text="Hard" Command="{Binding RecalculateCommand}" CommandParameter="hard"/>
+                <Button Text="Easy" Command="{Binding RecalculateCommand}" CommandParameter="easy">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding SelectedEconomyDifficulty}" Value="easy">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Accent}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Text="Normal" Command="{Binding RecalculateCommand}" CommandParameter="normal">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding SelectedEconomyDifficulty}" Value="normal">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Accent}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Text="Hard" Command="{Binding RecalculateCommand}" CommandParameter="hard">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding SelectedEconomyDifficulty}" Value="hard">
+                            <Setter Property="BackgroundColor" Value="{StaticResource Accent}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
             </StackLayout>
             <syncfusion:SfDataGrid 
                 ItemsSource="{Binding Items}"
@@ -67,6 +85,7 @@
                         DisplayBinding="{Binding BestMonths, Converter={StaticResource monthConverter}}"
                         HeaderFontAttribute="Bold"
                         CellTextSize="12" TextAlignment="Center"
+                        AllowSorting="False"
                         Width="100"
                         />
                 </syncfusion:SfDataGrid.Columns>

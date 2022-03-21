@@ -11,10 +11,15 @@ namespace FarmSimHelper.ViewModels
 {
     public class PricesViewModel : BaseViewModel
     {
+        string selectedEconomyDifficulty;
         readonly ISellPriceLoader priceLoader;
         readonly IProductPriceCalculator priceCalculator;
         public ObservableCollection<SellingPrice> Items { get; private set; }
-
+        public string SelectedEconomyDifficulty 
+        {
+            get => selectedEconomyDifficulty;
+            set { SetProperty(ref selectedEconomyDifficulty, value); }
+        }
         public Command LoadItemsCommand { get; private set; }
         public Command<string> RecalculateCommand { get; private set; }
 
@@ -22,6 +27,7 @@ namespace FarmSimHelper.ViewModels
         {
             this.priceLoader = priceLoader;
             this.priceCalculator = priceCalculator;
+            SelectedEconomyDifficulty = "hard";
             Title = "Average Selling Prices";
             Items = new ObservableCollection<SellingPrice>();
 
@@ -46,6 +52,8 @@ namespace FarmSimHelper.ViewModels
         async void ExecuteRecalculateCommand(string economyDifficulty)
         {
             float factor;
+
+            SelectedEconomyDifficulty = economyDifficulty;
             switch (economyDifficulty)
             {
                 case "easy":
