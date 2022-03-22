@@ -27,6 +27,7 @@ namespace FarmSimHelper
             builder.RegisterType<SellPriceLoader>().As<ISellPriceLoader>();
             builder.RegisterType<HttpClient>();
             builder.RegisterType<PricesViewModel>().SingleInstance();
+            builder.RegisterType<YieldViewModel>().SingleInstance();
 
             container = builder.Build();
             Scope = container.BeginLifetimeScope();

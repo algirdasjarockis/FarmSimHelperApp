@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<fruitTypes>
+    <fruitType name="wheat" >
+        <harvestliterPerSqm="0.89"/>
+    </fruitType>
+    <fruitType name="barley">
+        <harvest literPerSqm="0.96"/>
+    </fruitType>
+    <fruitType name="canola">
+        <harvest literPerSqm="0.58" beeYieldBonusPercentage="0.05"/>
+    </fruitType>
+    <fruitType name="oat">
+        <harvest literPerSqm="0.57"/>
+    </fruitType>
+    <fruitType name="maize">
+        <harvest literPerSqm="0.92"/>
+    </fruitType>
+    <fruitType name="sunflower">
+        <harvest literPerSqm="0.52" beeYieldBonusPercentage="0.05"/>
+    </fruitType>
+    <fruitType name="soybean">
+        <harvest literPerSqm="0.45"/>
+    </fruitType>
+    <fruitType name="potato">
+        <harvest literPerSqm="4.13" beeYieldBonusPercentage="0.05"/>
+    </fruitType>
+    <fruitType name="sugarBeet">
+        <harvest literPerSqm="5.78"/>
+    </fruitType>
+    <fruitType name="sugarCane">
+        <harvest literPerSqm="11.34"/>
+    </fruitType>
+    <fruitType name="cotton">
+        <harvest literPerSqm="0.497"/>
+    </fruitType>
+    <fruitType name="sorghum">
+        <harvest literPerSqm="0.82"/>
+    </fruitType>
+    <fruitType name="grape">
+        <harvest literPerSqm="0.92"/>
+    </fruitType>
+    <fruitType name="olive">
+        <harvest literPerSqm="0.92"/>
+    </fruitType>
+    <fruitType name="poplar">
+        <harvest literPerSqm="2.82"/>
+    </fruitType>
+    <fruitType name="grass">
+        <harvest literPerSqm="3.28"/>
+    </fruitType>
+</fruitTypes>
+

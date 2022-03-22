@@ -8,7 +8,6 @@ namespace FarmSimHelper.Models
     public class SellingPrice
     {
         public string ProductName { get; set; }
-        public string Icon { get; set; }
         public int AveragePrice { get; set; }
         public int GoodPrice { get; set; }
         public int BestPrice { get; set; }

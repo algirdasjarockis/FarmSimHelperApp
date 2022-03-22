@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             x:Class="FarmSimHelper.Views.YieldPage"
+             xmlns:conv="clr-namespace:FarmSimHelper.Converters"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:ProductNameConverter x:Key="productNameConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Margin="0" Padding="0" Orientation="Vertical">
+            <StackLayout Orientation="Horizontal" Margin="10,10,10,0" HorizontalOptions="Center">
+            </StackLayout>
+            <syncfusion:SfDataGrid 
+                ItemsSource="{Binding Items}"
+                IsBusy="{Binding IsBusy, Mode=TwoWay}"
+                AutoGenerateColumns="False"
+                AllowSorting="True"
+                AllowResizingColumn="True"
+                ColumnSizer="Auto"
+                MinimumWidthRequest="600"
+                HorizontalOptions="CenterAndExpand">
+                <syncfusion:SfDataGrid.GridStyle>
+                    <syncfusion:DefaultStyle 
+                        HeaderBackgroundColor="{StaticResource Primary}" HeaderForegroundColor="White"                    
+                        GridCellBorderColor="{StaticResource Primary}"
+                        GridCellBorderWidth="0"
+                        AlternatingRowColor="{StaticResource Secondary}"
+                        />
+                </syncfusion:SfDataGrid.GridStyle>
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn 
+                        MappingName="Product.Name" HeaderText="Product"
+                        DisplayBinding="{Binding Product.Name, Converter={StaticResource productNameConverter}}"
+                        HeaderFontAttribute="Bold"
+                        CellTextSize="12" TextAlignment="End"
+                        Width="140"/>
+                    <syncfusion:GridImageColumn
+                        MappingName="ProductImage" HeaderText=""
+                        Width="30"
+                        />
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

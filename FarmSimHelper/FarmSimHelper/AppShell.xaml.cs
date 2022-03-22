@@ -15,6 +15,7 @@ namespace FarmSimHelper
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
 
             Routing.RegisterRoute(nameof(PricesViewModel), typeof(PricesPage));
+            Routing.RegisterRoute(nameof(YieldViewModel), typeof(YieldPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

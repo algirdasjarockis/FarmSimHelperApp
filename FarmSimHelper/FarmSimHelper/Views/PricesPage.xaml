@@ -59,8 +59,8 @@
                 </syncfusion:SfDataGrid.GridStyle>
                 <syncfusion:SfDataGrid.Columns>
                     <syncfusion:GridTextColumn 
-                        MappingName="ProductName" HeaderText="Product"
-                        DisplayBinding="{Binding ProductName, Converter={StaticResource productNameConverter}}"
+                        MappingName="Product.Name" HeaderText="Product"
+                        DisplayBinding="{Binding Product.Name, Converter={StaticResource productNameConverter}}"
                         HeaderFontAttribute="Bold"
                         CellTextSize="12" TextAlignment="End"
                         Width="140"/>

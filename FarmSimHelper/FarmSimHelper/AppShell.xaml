@@ -82,6 +82,9 @@
     <FlyoutItem Title="Average Selling Prices" Icon="icon_feed.png">
         <ShellContent Route="PricesViewModel" ContentTemplate="{DataTemplate local:PricesPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Yield Info" Icon="icon_feed.png">
+        <ShellContent Route="YieldViewModel" ContentTemplate="{DataTemplate local:YieldPage}" />
+    </FlyoutItem>
     <FlyoutItem Title="About" Icon="icon_about.png">
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>

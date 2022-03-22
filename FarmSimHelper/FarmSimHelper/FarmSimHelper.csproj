@@ -73,6 +73,9 @@
     <EmbeddedResource Update="Views\PricesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\YieldPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
