@@ -3,17 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
              x:Class="FarmSimHelper.Views.YieldPage"
+             xmlns:vm="clr-namespace:FarmSimHelper.ViewModels"
              xmlns:conv="clr-namespace:FarmSimHelper.Converters"
              >
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:ProductNameConverter x:Key="productNameConverter" />
+            <conv:YieldConverter x:Key="yieldConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout Margin="0" Padding="0" Orientation="Vertical">
             <StackLayout Orientation="Horizontal" Margin="10,10,10,0" HorizontalOptions="Center">
+                <Button Command="{Binding UseHaCommand}" Text="Use ha"/>
             </StackLayout>
             <syncfusion:SfDataGrid 
                 ItemsSource="{Binding Items}"
@@ -43,6 +46,34 @@
                         MappingName="ProductImage" HeaderText=""
                         Width="30"
                         />
+                    <syncfusion:GridNumericColumn 
+                        MappingName="LitersPerSqm" HeaderText="Liters/ha"
+                        DisplayBinding="{Binding Liters}"
+                        HeaderFontAttribute="Bold"
+                        TextAlignment="Center" 
+                        Width="90">
+                     </syncfusion:GridNumericColumn>
+                    <!-- Binding on converter params not working will be back later -->
+                    <!--<syncfusion:GridNumericColumn 
+                        MappingName="LitersPerSqm" HeaderText="Liters/ha"
+                        DisplayBinding="{Binding LitersPerSqm, Converter={StaticResource yieldConverter}, ConverterParameter={Binding UseHectares}}"
+                        HeaderFontAttribute="Bold"
+                        TextAlignment="Center" 
+                        Width="90">
+                     </syncfusion:GridNumericColumn>-->
+                    <!--<syncfusion:GridNumericColumn 
+                        MappingName="LitersPerSqm" HeaderText="Liters/ha"
+                        HeaderFontAttribute="Bold"
+                        TextAlignment="Center" 
+                        Width="90">
+                        <syncfusion:GridNumericColumn.DisplayBinding>
+                            <Binding Path="LitersPerSqm">
+                                <Binding.Converter>
+                                    <conv:YieldConverter UseHa="{Binding UseHectares}"/>
+                                </Binding.Converter>
+                            </Binding>
+                        </syncfusion:GridNumericColumn.DisplayBinding>
+                    </syncfusion:GridNumericColumn>-->
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
         </StackLayout>

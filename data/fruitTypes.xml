@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <fruitTypes>
     <fruitType name="wheat" >
-        <harvestliterPerSqm="0.89"/>
+        <harvest literPerSqm="0.89"/>
     </fruitType>
     <fruitType name="barley">
         <harvest literPerSqm="0.96"/>

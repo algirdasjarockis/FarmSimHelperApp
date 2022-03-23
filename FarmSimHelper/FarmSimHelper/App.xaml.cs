@@ -25,6 +25,7 @@ namespace FarmSimHelper
             //builder.Register(c => new SellPriceLoader(new HttpClient(), new ProductPriceCalculator())).As<ISellPriceLoader>();
             builder.RegisterType<ProductPriceCalculator>().As<IProductPriceCalculator>();
             builder.RegisterType<SellPriceLoader>().As<ISellPriceLoader>();
+            builder.RegisterType<YieldInfoLoader>().As<IYieldInfoLoader>();
             builder.RegisterType<HttpClient>();
             builder.RegisterType<PricesViewModel>().SingleInstance();
             builder.RegisterType<YieldViewModel>().SingleInstance();

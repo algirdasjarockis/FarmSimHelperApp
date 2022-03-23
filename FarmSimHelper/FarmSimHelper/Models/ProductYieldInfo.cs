@@ -10,5 +10,6 @@ namespace FarmSimHelper.Models
         public ProductInfo Product { get; set; }
         public ImageSource ProductImage { get; set; }
         public float LitersPerSqm { get; set; }
+        public float Liters { get; set; }
     }
 }
