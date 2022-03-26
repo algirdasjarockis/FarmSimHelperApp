@@ -18,6 +18,7 @@ namespace FarmSimHelper.ViewModels
 
     public class PricesViewModel : BaseViewModel
     {
+        bool loaded;
         EconomyDifficulty selectedEconomyDifficulty;
         readonly ISellPriceLoader priceLoader;
         readonly IProductPriceCalculator priceCalculator;
@@ -89,7 +90,11 @@ namespace FarmSimHelper.ViewModels
 
         public async void OnAppearing()
         {
-            await ExecuteLoadCommand();
+            if (!loaded)
+            {
+                await ExecuteLoadCommand();
+                loaded = true;
+            }
         }
     }
 }
