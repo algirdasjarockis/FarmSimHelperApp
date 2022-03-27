@@ -2,9 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
              x:Class="FarmSimHelper.Views.YieldPage"
              xmlns:vm="clr-namespace:FarmSimHelper.ViewModels"
              xmlns:conv="clr-namespace:FarmSimHelper.Converters"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard" 
              >
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -15,8 +17,14 @@
 
     <ContentPage.Content>
         <StackLayout Margin="0" Padding="0" Orientation="Vertical">
-            <StackLayout Orientation="Horizontal" Margin="10,10,10,0" HorizontalOptions="Center">
-
+            <StackLayout Orientation="Horizontal" Margin="10,10,10,0">
+                <combobox:SfComboBox 
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding Fields}"
+                    IsEditableMode="True"
+                    AllowFiltering="True"
+                    MultiSelectMode="Token">
+                </combobox:SfComboBox>
             </StackLayout>
             <syncfusion:SfDataGrid 
                 ItemsSource="{Binding Items}"
@@ -51,8 +59,28 @@
                         DisplayBinding="{Binding Liters}"
                         HeaderFontAttribute="Bold"
                         TextAlignment="Center" 
-                        Width="90">
-                     </syncfusion:GridNumericColumn>
+                        Width="90"/>
+                    <syncfusion:GridNumericColumn 
+                        MappingName="LitersPerSqm" HeaderText="{Binding TextColumnLiters}"
+                        DisplayBinding="{Binding LitersFieldOne}"
+                        IsHidden="True"
+                        HeaderFontAttribute="Bold"
+                        TextAlignment="Center" 
+                        Width="90"/>
+                    <syncfusion:GridNumericColumn 
+                        MappingName="LitersPerSqm" HeaderText="{Binding TextColumnLiters}"
+                        DisplayBinding="{Binding LitersFieldTwo}"
+                        IsHidden="True"
+                        HeaderFontAttribute="Bold"
+                        TextAlignment="Center" 
+                        Width="90"/>
+                    <syncfusion:GridNumericColumn 
+                        MappingName="LitersPerSqm" HeaderText="{Binding TextColumnLiters}"
+                        DisplayBinding="{Binding LitersFieldThree}"
+                        IsHidden="True"
+                        HeaderFontAttribute="Bold"
+                        TextAlignment="Center" 
+                        Width="90"/>
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
         </StackLayout>

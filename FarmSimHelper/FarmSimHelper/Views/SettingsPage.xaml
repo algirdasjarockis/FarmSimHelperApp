@@ -5,33 +5,26 @@
              xmlns:vm="clr-namespace:FarmSimHelper.ViewModels" x:DataType="vm:SettingsViewModel"
              x:Class="FarmSimHelper.Views.SettingsPage">
     <ContentPage.Content>
-        <!--<Grid
-            ColumnDefinitions="*,90,*"
-            RowDefinitions="40,40,40,40">
-            <Label Text="Ha" HorizontalOptions="End" VerticalOptions="Center"/>
-            <Switch RadioButtonGroup.GroupName="lol" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-            <Label Grid.Column="2" Text="Acres" HorizontalOptions="Start" VerticalOptions="Center"/>
-
-            <Label Grid.Row="1" Text="Map1" VerticalOptions="Center" HorizontalOptions="End"/>
-            <RadioButton GroupName="map" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" Scale="1.25"/>
-            <Label Grid.Row="2" Text="Map2" VerticalOptions="Center"/>
-            <RadioButton GroupName="map" Grid.Row="2" Grid.Column="1" VerticalOptions="Center" Scale="1.5" />
-        </Grid>-->
-
-        <Grid
-            ColumnDefinitions="120,*" RowDefinitions="50,50" Padding="20"
-            >
-            <Label Text="Current Map:" HorizontalTextAlignment="End" VerticalTextAlignment="Center" FontAttributes="Bold"/>
-            <Picker Grid.Column="1" Title="Pick a map" VerticalOptions="CenterAndExpand"
-                    ItemsSource="{Binding Maps}" SelectedItem="{Binding SelectedMap}"
-                    />
-            <Label Grid.Row="1" Text="Square Unit:" HorizontalTextAlignment="End" VerticalTextAlignment="Center" FontAttributes="Bold"/>
-            <Picker Grid.Row="1" Grid.Column="1" Title="Pick an unit" VerticalOptions="CenterAndExpand"
-                    ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit}">
-                <Picker.Behaviors>
-                    <xct:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding UnitChangeCommand}"/>
-                </Picker.Behaviors>
-            </Picker>
-        </Grid>
+        <StackLayout>
+            <Grid
+                ColumnDefinitions="120,*" RowDefinitions="50,50" Padding="20"
+                >
+                <Label Text="Current Map:" HorizontalTextAlignment="End" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                <Picker Grid.Column="1" Title="Pick a map" VerticalOptions="CenterAndExpand"
+                        ItemsSource="{Binding Maps}" SelectedItem="{Binding SelectedMap}"
+                        />
+                <Label Grid.Row="1" Text="Square Unit:" HorizontalTextAlignment="End" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                <Picker Grid.Row="1" Grid.Column="1" Title="Pick an unit" VerticalOptions="CenterAndExpand"
+                        ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit}">
+                    <Picker.Behaviors>
+                        <xct:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding UnitChangeCommand}"/>
+                    </Picker.Behaviors>
+                </Picker>
+            </Grid>
+            <Button Text="Load Data" VerticalOptions="EndAndExpand" Margin="18,5,18,2"
+                    Command="{Binding DownloadDataCommand}"/>
+            <Label FontSize="12" HorizontalTextAlignment="Center" 
+                Text="By pressing this button you will download multiple XML files into your storage. XML files contain various data of products, yield and fields" HorizontalOptions="CenterAndExpand"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,6 +1,7 @@
 using FarmSimHelper.Services;
 using FarmSimHelper.ViewModels;
 using System;
+using System.IO;
 using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,6 +13,18 @@ namespace FarmSimHelper
     {
         private readonly IContainer container;
         public static ILifetimeScope Scope { get; private set; }
+
+        public static class Config
+        {
+            public static string DataRoot => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            public static string DataPathProducts => Path.Combine(DataRoot, "fillTypes.xml");
+            public static string DataPathYield => Path.Combine(DataRoot, "fruitTypes.xml");
+
+            public static string GetDataPathFields(string mapName)
+            {
+                return Path.Combine(DataRoot, $"fields_{mapName.ToLower()}");
+            }
+        }
 
         public App()
         {
@@ -26,6 +39,7 @@ namespace FarmSimHelper
             builder.RegisterType<ProductPriceCalculator>().As<IProductPriceCalculator>();
             builder.RegisterType<SellPriceLoader>().As<ISellPriceLoader>();
             builder.RegisterType<YieldInfoLoader>().As<IYieldInfoLoader>();
+            builder.RegisterType<DataDownloader>().As<IDataDownloader>();
             builder.RegisterType<HttpClient>();
             builder.RegisterType<PricesViewModel>().SingleInstance();
             builder.RegisterType<YieldViewModel>().SingleInstance();
