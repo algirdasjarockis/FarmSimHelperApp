@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using FarmSimHelper.Models;
 
 namespace FarmSimHelper.Services
 {
-    public interface IYieldInfoLoader
+    public interface IDataLoader<T, P>
     {
-        Task<IEnumerable<ProductYieldInfo>> LoadYieldInfo();
+        Task<IEnumerable<T>> LoadData(P param = default);
     }
 }

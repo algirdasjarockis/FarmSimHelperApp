@@ -13,8 +13,8 @@ namespace FarmSimHelper.ViewModels
     public class YieldViewModel : BaseViewModel
     {
         bool loaded;
-        IYieldInfoLoader yieldInfoLoader;
-        SettingsViewModel settingsViewModel;
+        readonly IDataLoader<ProductYieldInfo, SquareUnit> yieldInfoLoader;
+        readonly SettingsViewModel settingsViewModel;
 
         string textColumnLiters;
 
@@ -25,15 +25,17 @@ namespace FarmSimHelper.ViewModels
         }
 
         public ObservableCollection<ProductYieldInfo> Items { get; private set; }
+        public ObservableCollection<string> Fields { get; private set; }
         public Command LoadItemsCommand { get; private set; }
         public Command UseHaCommand { get; private set; }
 
-        public YieldViewModel(IYieldInfoLoader loader, SettingsViewModel vm)
+        public YieldViewModel(IDataLoader<ProductYieldInfo, SquareUnit> loader, SettingsViewModel vm)
         {
             yieldInfoLoader = loader;
             settingsViewModel = vm;
            
             Items = new ObservableCollection<ProductYieldInfo>();
+            Fields = new ObservableCollection<string>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadCommand());
             UseHaCommand = new Command(ExecuteRecalculateCommand);
 
@@ -44,9 +46,11 @@ namespace FarmSimHelper.ViewModels
         async Task ExecuteLoadCommand()
         {
             IsBusy = true;
-            Items.Clear();
 
-            var items = await yieldInfoLoader.LoadYieldInfo();
+            Items.Clear();
+            Fields.Clear();
+
+            var items = await yieldInfoLoader.LoadData(settingsViewModel.SelectedUnit);
             foreach (var item in items)
             {
                 Items.Add(item);

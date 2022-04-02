@@ -10,12 +10,6 @@ using FarmSimHelper.Services;
 
 namespace FarmSimHelper.ViewModels
 {
-    public enum SquareUnit
-    {
-        Hectares,
-        Acres
-    }
-
     public class SettingsViewModel : BaseViewModel
     {
 #if DEBUG
@@ -29,29 +23,28 @@ namespace FarmSimHelper.ViewModels
 #endif
 
         IDataDownloader downloader;
+        Settings settings;
 
         public string SelectedMap { get; set; }
         public SquareUnit SelectedUnit { get; set; }
         public List<string> Maps { get; private set; }
+        public List<FieldInfo> Fields { get; private set; }
         public List<SquareUnit> Units { get; private set; }
 
         public Command DownloadDataCommand { get; private set; }
         public Command UnitChangeCommand { get; private set; }
 
-        public SettingsViewModel(IDataDownloader downloader)
+        public SettingsViewModel(IDataDownloader downloader, Settings settings)
         {
             this.downloader = downloader;
-            Maps = new List<string>()
-            {
-                "Elmcreek",
-                "Erlengrat",
-                "Beyleron"
-            };
+            this.settings = settings;
+
+            Maps = Settings.Maps;
+            Fields = settings.Fields;
+            SelectedMap = settings.Map;
+            SelectedUnit = settings.Unit;
 
             Units = new List<SquareUnit>() { SquareUnit.Hectares, SquareUnit.Acres };
-
-            SelectedMap = "Elmcreek";
-            SelectedUnit = SquareUnit.Hectares;
 
             UnitChangeCommand = new Command(ExecuteUnitChangeCommand);
             DownloadDataCommand= new Command(ExecuteDownloadCommand);
@@ -60,6 +53,8 @@ namespace FarmSimHelper.ViewModels
         void ExecuteUnitChangeCommand()
         {
             WeakReferenceMessenger.Default.Send(new SquareUnitChangedMessage());
+            settings.Unit = SelectedUnit;
+            SettingsService.SaveSettings(settings);
         }
 
         async void ExecuteDownloadCommand()
@@ -67,7 +62,7 @@ namespace FarmSimHelper.ViewModels
             await downloader.DownloadFile(ProductDataUrl, App.Config.DataPathProducts);
             await downloader.DownloadFile(YieldDataUrl, App.Config.DataPathYield);
 
-            //await downloader.DownloadFile(YieldDataUrl, App.Config.DataPathElmcreekFields);
+            await downloader.DownloadFile(FieldDataUrl.Replace("%mapName%", "elmcreek"), App.Config.GetDataPathFields("Elmcreek"));
         }
     }
 }

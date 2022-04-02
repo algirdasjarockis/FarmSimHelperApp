@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Http;
 using System.Linq;
 using System.IO;
 using System.Xml;
@@ -12,9 +11,9 @@ using Xamarin.Forms;
 
 namespace FarmSimHelper.Services
 {
-    public class YieldInfoLoader : IYieldInfoLoader
+    public class YieldInfoLoader : IDataLoader<ProductYieldInfo, SquareUnit>
     {
-        public async Task<IEnumerable<ProductYieldInfo>> LoadYieldInfo()
+        public async Task<IEnumerable<ProductYieldInfo>> LoadData(SquareUnit unit = default)
         {
             List<ProductYieldInfo> items = new List<ProductYieldInfo>();
 
@@ -24,7 +23,7 @@ namespace FarmSimHelper.Services
             }
 
             XDocument xmlDoc = XDocument.Load(App.Config.DataPathYield);
-            var query = 
+            var query =
                 from c in xmlDoc.Root.Descendants("fruitType")
                 select new
                 {
@@ -42,7 +41,7 @@ namespace FarmSimHelper.Services
                         PricePerLiter = 0,
                     },
                     LitersPerSqm = productElement.LiterPerSqm,
-                    Liters = productElement.LiterPerSqm * 10000,
+                    Liters = productElement.LiterPerSqm * (unit == SquareUnit.Hectares ? 10000 : 4046.86f),
                     ProductImage = ImageSource.FromResource($"FarmSimHelper.Resources.ProductIcons.{productElement.ProductName.ToLower()}.png")
                 };
 

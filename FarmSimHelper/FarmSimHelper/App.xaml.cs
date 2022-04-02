@@ -1,11 +1,13 @@
 using FarmSimHelper.Services;
 using FarmSimHelper.ViewModels;
+using FarmSimHelper.Models;
 using System;
 using System.IO;
 using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Autofac;
+using System.Collections.Generic;
 
 namespace FarmSimHelper
 {
@@ -13,16 +15,18 @@ namespace FarmSimHelper
     {
         private readonly IContainer container;
         public static ILifetimeScope Scope { get; private set; }
+        public static SettingsViewModel SettingsViewModel { get; private set; }
 
         public static class Config
         {
             public static string DataRoot => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             public static string DataPathProducts => Path.Combine(DataRoot, "fillTypes.xml");
             public static string DataPathYield => Path.Combine(DataRoot, "fruitTypes.xml");
+            public static Settings Settings;
 
             public static string GetDataPathFields(string mapName)
             {
-                return Path.Combine(DataRoot, $"fields_{mapName.ToLower()}");
+                return Path.Combine(DataRoot, $"fields_{mapName.ToLower()}.xml");
             }
         }
 
@@ -38,12 +42,14 @@ namespace FarmSimHelper
             //builder.Register(c => new SellPriceLoader(new HttpClient(), new ProductPriceCalculator())).As<ISellPriceLoader>();
             builder.RegisterType<ProductPriceCalculator>().As<IProductPriceCalculator>();
             builder.RegisterType<SellPriceLoader>().As<ISellPriceLoader>();
-            builder.RegisterType<YieldInfoLoader>().As<IYieldInfoLoader>();
+            builder.RegisterType<YieldInfoLoader>().As<IDataLoader<ProductYieldInfo, SquareUnit>>();
             builder.RegisterType<DataDownloader>().As<IDataDownloader>();
             builder.RegisterType<HttpClient>();
             builder.RegisterType<PricesViewModel>().SingleInstance();
             builder.RegisterType<YieldViewModel>().SingleInstance();
             builder.RegisterType<SettingsViewModel>().SingleInstance();
+
+            builder.Register(c => new Settings(Config.Settings)).As<Settings>().SingleInstance();
 
             container = builder.Build();
             Scope = container.BeginLifetimeScope();
@@ -51,8 +57,27 @@ namespace FarmSimHelper
             MainPage = new AppShell();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
+            // 1. load settings file
+            if (SettingsService.SettingsExist())
+            {
+                Config.Settings = SettingsService.LoadSettings();
+            } else {
+                // default settings
+                Config.Settings = new Settings()
+                {
+                    Unit = SquareUnit.Hectares,
+                    Map = "Elmcreek"
+                };
+
+                SettingsService.SaveSettings(Config.Settings);
+            }
+
+            // 2. load fields data according to settings (selected map)
+            var loader = new FieldInfoLoader();
+            var fields = await loader.LoadData(Config.Settings.Map);
+            foreach (var field in fields) { Config.Settings.Fields.Add(field); }
         }
 
         protected override void OnSleep()
