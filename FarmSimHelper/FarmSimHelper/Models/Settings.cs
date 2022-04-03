@@ -24,15 +24,9 @@ namespace FarmSimHelper.Models
 
         public Settings()
         {
-        }
-
-        public Settings(Settings defaultValue = null)
-        {
-            if (defaultValue != null)
-            {
-                Unit = defaultValue.Unit;
-                Map = defaultValue.Map;
-            }
+            Unit = SquareUnit.Hectares;
+            Map = Maps[0];
+            Fields = new List<FieldInfo>();
         }
     }
 }

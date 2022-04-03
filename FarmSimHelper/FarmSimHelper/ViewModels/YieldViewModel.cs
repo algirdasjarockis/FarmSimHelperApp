@@ -15,19 +15,24 @@ namespace FarmSimHelper.ViewModels
         bool loaded;
         readonly IDataLoader<ProductYieldInfo, SquareUnit> yieldInfoLoader;
         readonly SettingsViewModel settingsViewModel;
+        string? textColumnLiters;
+        List<int> selectedFields;
 
-        string textColumnLiters;
-
-        public string TextColumnLiters
+        public string? TextColumnLiters
         {
             get { return textColumnLiters; }
             set { SetProperty(ref textColumnLiters, value); }
         }
+        public List<int> SelectedFields
+        {
+            get { return selectedFields; }
+            set { SetProperty(ref selectedFields, value); }
+        }
 
         public ObservableCollection<ProductYieldInfo> Items { get; private set; }
-        public ObservableCollection<string> Fields { get; private set; }
+        public ObservableCollection<FieldInfo> Fields { get; set; }
         public Command LoadItemsCommand { get; private set; }
-        public Command UseHaCommand { get; private set; }
+        public Command FieldsSelectCommand { get; private set; }
 
         public YieldViewModel(IDataLoader<ProductYieldInfo, SquareUnit> loader, SettingsViewModel vm)
         {
@@ -35,10 +40,10 @@ namespace FarmSimHelper.ViewModels
             settingsViewModel = vm;
            
             Items = new ObservableCollection<ProductYieldInfo>();
-            Fields = new ObservableCollection<string>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadCommand());
-            UseHaCommand = new Command(ExecuteRecalculateCommand);
-
+            FieldsSelectCommand = new Command(ExecuteFieldsSelectCommand);
+            Fields = new ObservableCollection<FieldInfo>();
+  
             SetTextForColumnLiters();
             WeakReferenceMessenger.Default.Register<SquareUnitChangedMessage>(this, (r, m) => ExecuteRecalculateCommand());
         }
@@ -56,6 +61,11 @@ namespace FarmSimHelper.ViewModels
                 Items.Add(item);
             }
 
+            foreach (var field in settingsViewModel.Fields)
+            {
+                Fields.Add(field);
+            }
+
             IsBusy = false;
         }
 
@@ -66,12 +76,17 @@ namespace FarmSimHelper.ViewModels
             {
                 Items[i] = new ProductYieldInfo()
                 {
-                    LitersPerSqm = Items[i].LitersPerSqm,
-                    Liters = Items[i].LitersPerSqm * (settingsViewModel.SelectedUnit == SquareUnit.Hectares ? 10000 : 4046.86f),
+                    LitersPerSqm = Items[i].LitersPerSqm + 0.01f,
                     Product = Items[i].Product,
                     ProductImage = Items[i].ProductImage,
+                    Liters = (new Random()).Next()
                 };
             }
+        }
+
+        void ExecuteFieldsSelectCommand()
+        {
+            Console.WriteLine(SelectedFields);
         }
 
         void SetTextForColumnLiters()

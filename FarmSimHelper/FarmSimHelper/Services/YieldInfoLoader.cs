@@ -41,7 +41,6 @@ namespace FarmSimHelper.Services
                         PricePerLiter = 0,
                     },
                     LitersPerSqm = productElement.LiterPerSqm,
-                    Liters = productElement.LiterPerSqm * (unit == SquareUnit.Hectares ? 10000 : 4046.86f),
                     ProductImage = ImageSource.FromResource($"FarmSimHelper.Resources.ProductIcons.{productElement.ProductName.ToLower()}.png")
                 };
 

@@ -52,9 +52,9 @@ namespace FarmSimHelper.ViewModels
 
         void ExecuteUnitChangeCommand()
         {
-            WeakReferenceMessenger.Default.Send(new SquareUnitChangedMessage());
             settings.Unit = SelectedUnit;
             SettingsService.SaveSettings(settings);
+            WeakReferenceMessenger.Default.Send(new SquareUnitChangedMessage());
         }
 
         async void ExecuteDownloadCommand()

@@ -39,17 +39,21 @@ namespace FarmSimHelper
             DependencyService.Register<MockDataStore>();
 
             var builder = new ContainerBuilder();
-            //builder.Register(c => new SellPriceLoader(new HttpClient(), new ProductPriceCalculator())).As<ISellPriceLoader>();
+            
+            // services
             builder.RegisterType<ProductPriceCalculator>().As<IProductPriceCalculator>();
             builder.RegisterType<SellPriceLoader>().As<ISellPriceLoader>();
             builder.RegisterType<YieldInfoLoader>().As<IDataLoader<ProductYieldInfo, SquareUnit>>();
             builder.RegisterType<DataDownloader>().As<IDataDownloader>();
             builder.RegisterType<HttpClient>();
+
+            // viewmodels
             builder.RegisterType<PricesViewModel>().SingleInstance();
             builder.RegisterType<YieldViewModel>().SingleInstance();
             builder.RegisterType<SettingsViewModel>().SingleInstance();
 
-            builder.Register(c => new Settings(Config.Settings)).As<Settings>().SingleInstance();
+            // custom stuff
+            builder.Register(c => Config.Settings).As<Settings>().SingleInstance();
 
             container = builder.Build();
             Scope = container.BeginLifetimeScope();
@@ -65,12 +69,7 @@ namespace FarmSimHelper
                 Config.Settings = SettingsService.LoadSettings();
             } else {
                 // default settings
-                Config.Settings = new Settings()
-                {
-                    Unit = SquareUnit.Hectares,
-                    Map = "Elmcreek"
-                };
-
+                Config.Settings = new Settings();
                 SettingsService.SaveSettings(Config.Settings);
             }
 

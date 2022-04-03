@@ -4,6 +4,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
              xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
              x:Class="FarmSimHelper.Views.YieldPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:FarmSimHelper.ViewModels"
              xmlns:conv="clr-namespace:FarmSimHelper.Converters"
              xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard" 
@@ -20,15 +21,21 @@
             <StackLayout Orientation="Horizontal" Margin="10,10,10,0">
                 <combobox:SfComboBox 
                     HorizontalOptions="FillAndExpand"
-                    ItemsSource="{Binding Fields}"
+                    DataSource="{Binding Fields}"
+                    DisplayMemberPath="Id"
                     IsEditableMode="True"
                     AllowFiltering="True"
+                    IsSelectedItemsVisibleInDropDown="False"
+                    SelectedIndices="{Binding SelectedFields}"
                     MultiSelectMode="Token">
+                    <combobox:SfComboBox.Behaviors>
+                        <xct:EventToCommandBehavior EventName="SelectionChanged" Command="{Binding FieldsSelectCommand}"/>
+                    </combobox:SfComboBox.Behaviors>
                 </combobox:SfComboBox>
             </StackLayout>
             <syncfusion:SfDataGrid 
                 ItemsSource="{Binding Items}"
-                IsBusy="{Binding IsBusy, Mode=TwoWay}"
+                IsBusy="{Binding IsBusy}"
                 AutoGenerateColumns="False"
                 AllowSorting="True"
                 AllowResizingColumn="True"
@@ -56,7 +63,7 @@
                         />
                     <syncfusion:GridNumericColumn 
                         MappingName="LitersPerSqm" HeaderText="{Binding TextColumnLiters}"
-                        DisplayBinding="{Binding Liters}"
+                        DisplayBinding="{Binding LitersPerSqm, Converter={StaticResource yieldConverter}}"
                         HeaderFontAttribute="Bold"
                         TextAlignment="Center" 
                         Width="90"/>
