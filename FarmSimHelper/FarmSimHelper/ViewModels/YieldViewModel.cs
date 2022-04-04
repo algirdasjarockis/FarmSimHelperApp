@@ -63,6 +63,7 @@ namespace FarmSimHelper.ViewModels
             LoadItemsCommand = new Command(async () => await ExecuteLoadCommand());
             FieldsSelectCommand = new Command(ExecuteRecalculateCommand);
 
+            Title = "Yield information";
             TextFieldSelect = $"Select '{vm.SelectedMap}' fields";
             SetTextForColumns();
 

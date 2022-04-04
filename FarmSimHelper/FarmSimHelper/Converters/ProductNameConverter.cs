@@ -66,9 +66,16 @@ namespace FarmSimHelper.Converters
        
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null && names.ContainsKey((string)value))
+            if (value == null)
             {
-                return names[(string)value];
+                return null;
+            }
+
+            var name = (value as string).ToUpper();
+
+            if (names.ContainsKey(name))
+            {
+                return names[name];
             }
 
             return value;
