@@ -11,8 +11,12 @@
                 >
                 <Label Text="Current Map:" HorizontalTextAlignment="End" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                 <Picker Grid.Column="1" Title="Pick a map" VerticalOptions="CenterAndExpand"
-                        ItemsSource="{Binding Maps}" SelectedItem="{Binding SelectedMap}"
-                        />
+                        ItemsSource="{Binding Maps}" SelectedItem="{Binding SelectedMap}">
+                    <Picker.Behaviors>
+                        <xct:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding MapChangeCommand}"/>
+                    </Picker.Behaviors>
+                </Picker>
+
                 <Label Grid.Row="1" Text="Square Unit:" HorizontalTextAlignment="End" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                 <Picker Grid.Row="1" Grid.Column="1" Title="Pick an unit" VerticalOptions="CenterAndExpand"
                         ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit}">

@@ -67,14 +67,13 @@ namespace FarmSimHelper.ViewModels
             SetTextForColumns();
 
             WeakReferenceMessenger.Default.Register<SquareUnitChangedMessage>(this, (r, m) => ExecuteRecalculateCommand());
+            WeakReferenceMessenger.Default.Register<MapChangedMessage>(this, (r, m) => ReloadFields());
         }
 
         async Task ExecuteLoadCommand()
         {
             IsBusy = true;
-
             Items.Clear();
-            Fields.Clear();
 
             var items = await yieldInfoLoader.LoadData(settingsViewModel.SelectedUnit);
             foreach (var item in items)
@@ -82,12 +81,19 @@ namespace FarmSimHelper.ViewModels
                 Items.Add(item);
             }
 
+            ReloadFields();
+
+            IsBusy = false;
+        }
+
+        void ReloadFields()
+        {
+            TextFieldSelect = $"Select '{settingsViewModel.SelectedMap}' fields";
+            Fields.Clear();
             foreach (var field in settingsViewModel.Fields)
             {
                 Fields.Add(field);
             }
-
-            IsBusy = false;
         }
 
         void ExecuteRecalculateCommand()

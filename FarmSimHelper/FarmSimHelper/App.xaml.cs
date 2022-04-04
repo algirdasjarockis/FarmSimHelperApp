@@ -7,6 +7,7 @@ using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Autofac;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
 
 namespace FarmSimHelper
@@ -44,6 +45,7 @@ namespace FarmSimHelper
             builder.RegisterType<ProductPriceCalculator>().As<IProductPriceCalculator>();
             builder.RegisterType<SellPriceLoader>().As<ISellPriceLoader>();
             builder.RegisterType<YieldInfoLoader>().As<IDataLoader<ProductYieldInfo, SquareUnit>>();
+            builder.RegisterType<FieldInfoLoader>().As<IDataLoader<FieldInfo, string>>();
             builder.RegisterType<DataDownloader>().As<IDataDownloader>();
             builder.RegisterType<HttpClient>();
 

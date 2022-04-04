@@ -23,6 +23,7 @@ namespace FarmSimHelper.ViewModels
 #endif
 
         IDataDownloader downloader;
+        IDataLoader<FieldInfo, string> fieldInfoLoader;
         Settings settings;
 
         public string SelectedMap { get; set; }
@@ -33,10 +34,12 @@ namespace FarmSimHelper.ViewModels
 
         public Command DownloadDataCommand { get; private set; }
         public Command UnitChangeCommand { get; private set; }
+        public Command MapChangeCommand { get; private set; }
 
-        public SettingsViewModel(IDataDownloader downloader, Settings settings)
+        public SettingsViewModel(IDataDownloader downloader, IDataLoader<FieldInfo, string> fieldInfoLoader, Settings settings)
         {
             this.downloader = downloader;
+            this.fieldInfoLoader = fieldInfoLoader;
             this.settings = settings;
 
             Maps = Settings.Maps;
@@ -47,6 +50,7 @@ namespace FarmSimHelper.ViewModels
             Units = new List<SquareUnit>() { SquareUnit.Hectares, SquareUnit.Acres };
 
             UnitChangeCommand = new Command(ExecuteUnitChangeCommand);
+            MapChangeCommand = new Command(ExecuteMapChangeCommand);
             DownloadDataCommand= new Command(ExecuteDownloadCommand);
         }
 
@@ -57,12 +61,31 @@ namespace FarmSimHelper.ViewModels
             WeakReferenceMessenger.Default.Send(new SquareUnitChangedMessage());
         }
 
+        async void ExecuteMapChangeCommand()
+        {
+            settings.Map = SelectedMap;
+            
+            Fields.Clear();
+            var fields = await fieldInfoLoader.LoadData(SelectedMap);
+            foreach (var field in fields) { Fields.Add(field); }
+
+            SettingsService.SaveSettings(settings);
+
+            WeakReferenceMessenger.Default.Send(new MapChangedMessage());
+        }
+
         async void ExecuteDownloadCommand()
         {
             await downloader.DownloadFile(ProductDataUrl, App.Config.DataPathProducts);
             await downloader.DownloadFile(YieldDataUrl, App.Config.DataPathYield);
 
-            await downloader.DownloadFile(FieldDataUrl.Replace("%mapName%", "elmcreek"), App.Config.GetDataPathFields("Elmcreek"));
+            foreach (var mapName in Settings.Maps)
+            {
+                await downloader.DownloadFile(
+                    FieldDataUrl.Replace("%mapName%", mapName.ToLower()), 
+                    App.Config.GetDataPathFields(mapName)
+                );
+            }
         }
     }
 }
