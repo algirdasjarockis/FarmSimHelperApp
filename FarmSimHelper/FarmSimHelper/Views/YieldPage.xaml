@@ -27,6 +27,7 @@
                     AllowFiltering="True"
                     IsSelectedItemsVisibleInDropDown="False"
                     SelectedIndices="{Binding SelectedFields}"
+                    Watermark="{Binding TextFieldSelect}"
                     MultiSelectMode="Token">
                     <combobox:SfComboBox.Behaviors>
                         <xct:EventToCommandBehavior EventName="SelectionChanged" Command="{Binding FieldsSelectCommand}"/>
@@ -67,6 +68,12 @@
                         HeaderFontAttribute="Bold"
                         TextAlignment="Center" 
                         Width="90"/>
+                    <syncfusion:GridNumericColumn 
+                        MappingName="Liters" HeaderText="{Binding TextColumnLitersForFields}"
+                        DisplayBinding="{Binding Liters, Converter={StaticResource yieldConverter}}"
+                        HeaderFontAttribute="Bold"
+                        TextAlignment="Center" 
+                        Width="110"/>
                     <syncfusion:GridNumericColumn 
                         MappingName="LitersPerSqm" HeaderText="{Binding TextColumnLiters}"
                         DisplayBinding="{Binding LitersFieldOne}"
