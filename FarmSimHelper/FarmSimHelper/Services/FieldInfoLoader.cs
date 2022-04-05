@@ -37,7 +37,7 @@ namespace FarmSimHelper.Services
                     items.Add(field);
                 }
             }
-             catch (System.Xml.XmlException ex)
+            catch (System.Xml.XmlException ex)
             {
                 Console.WriteLine($" --- XML exception: {ex.Message}");
                 File.Delete(fileName);

@@ -36,42 +36,54 @@ namespace FarmSimHelper.Services
                 return items;
             }
 
-            XDocument xmlDoc = XDocument.Load(App.Config.DataPathProducts);
-            var query = from c in xmlDoc.Root.Descendants("fillType")
-                select new
-                {
-                    ProductName = c.Attribute("name").Value,
-                    PricePerLiter = decimal.Parse(c.Element("economy").Attribute("pricePerLiter").Value),
-                    PriceFactors = c.Element("economy")?.Element("factors")?.Descendants("factor")
-                };
-
-            foreach (var productElement in query)
+            try
             {
-                if (productElement.PriceFactors == null || ignoredProducts.Contains(productElement.ProductName))
-                    continue;
-
-                List<PriceFactor> factors = new List<PriceFactor>();
-                foreach (var factor in productElement.PriceFactors)
-                {
-                    factors.Add(new PriceFactor()
+                XDocument xmlDoc = XDocument.Load(App.Config.DataPathProducts);
+                var query = from c in xmlDoc.Root.Descendants("fillType")
+                    select new
                     {
-                        Month = ConvertToNormalMonth(byte.Parse(factor.Attribute("period").Value)),
-                        Factor = decimal.Parse(factor.Attribute("value").Value)
-                    });
-                }
+                        ProductName = c.Attribute("name").Value,
+                        PricePerLiter = decimal.Parse(c.Element("economy").Attribute("pricePerLiter").Value),
+                        PriceFactors = c.Element("economy")?.Element("factors")?.Descendants("factor")
+                    };
 
-                ProductInfo productInfo = new ProductInfo()
+                foreach (var productElement in query)
                 {
-                    Name = productElement.ProductName,
-                    PricePerLiter = productElement.PricePerLiter,
-                    PriceFactors = factors,
-                };
+                    if (productElement.PriceFactors == null 
+                        || productElement.PriceFactors.Count() <= 0 
+                        || ignoredProducts.Contains(productElement.ProductName))
+                    {
+                        continue;
+                    }
 
-                var sellingPrice = productPriceCalculator.CalculateSellingPrice(productInfo, baseFactor);
-                sellingPrice.ProductImage = ImageSource.FromResource($"FarmSimHelper.Resources.ProductIcons.{productElement.ProductName.ToLower()}.png");
-                items.Add(sellingPrice);
+                    List<PriceFactor> factors = new List<PriceFactor>();
+                    foreach (var factor in productElement.PriceFactors)
+                    {
+                        factors.Add(new PriceFactor()
+                        {
+                            Month = ConvertToNormalMonth(byte.Parse(factor.Attribute("period").Value)),
+                            Factor = decimal.Parse(factor.Attribute("value").Value)
+                        });
+                    }
+
+                    ProductInfo productInfo = new ProductInfo()
+                    {
+                        Name = productElement.ProductName,
+                        PricePerLiter = productElement.PricePerLiter,
+                        PriceFactors = factors,
+                    };
+
+                    var sellingPrice = productPriceCalculator.CalculateSellingPrice(productInfo, baseFactor);
+                    sellingPrice.ProductImage = ImageSource.FromResource($"FarmSimHelper.Resources.ProductIcons.{productElement.ProductName.ToLower()}.png");
+                    items.Add(sellingPrice);
+                }
+            } catch (XmlException ex)
+            {
+                Console.WriteLine($" --- XML exception: {ex.Message}");
+                File.Delete(App.Config.DataPathProducts);
+                return items;
             }
-            
+
             return await Task.FromResult(items);
         }
 
