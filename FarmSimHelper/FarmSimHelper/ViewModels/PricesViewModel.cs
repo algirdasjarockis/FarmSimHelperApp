@@ -93,7 +93,7 @@ namespace FarmSimHelper.ViewModels
             if (!loaded)
             {
                 await ExecuteLoadCommand();
-                loaded = true;
+                loaded = Items.Count > 0;
             }
         }
     }
