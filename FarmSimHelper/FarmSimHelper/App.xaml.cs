@@ -79,6 +79,11 @@ namespace FarmSimHelper
             var loader = new FieldInfoLoader();
             var fields = await loader.LoadData(Config.Settings.Map);
             foreach (var field in fields) { Config.Settings.Fields.Add(field); }
+
+            if (!DataFilesExist())
+            {
+                WeakReferenceMessenger.Default.Send(new NoDataFilesFoundMessage());
+            }
         }
 
         protected override void OnSleep()
@@ -87,6 +92,25 @@ namespace FarmSimHelper
 
         protected override void OnResume()
         {
+        }
+
+        bool DataFilesExist()
+        {
+            bool missing = !File.Exists(Config.DataPathYield) || !File.Exists(Config.DataPathProducts);
+            if (missing)
+            {
+                return false;
+            }
+
+            foreach (var file in Settings.Maps)
+            {
+                if (!File.Exists(Config.GetDataPathFields(file)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
