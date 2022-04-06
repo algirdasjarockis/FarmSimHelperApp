@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\fa-solid-900.otf" />
     <EmbeddedResource Include="Resources\ProductIcons\barley.png" />
     <EmbeddedResource Include="Resources\ProductIcons\barleybeer.png" />
     <EmbeddedResource Include="Resources\ProductIcons\boards.png" />
