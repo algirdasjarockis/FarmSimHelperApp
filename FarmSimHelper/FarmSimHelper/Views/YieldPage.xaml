@@ -7,7 +7,6 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:vm="clr-namespace:FarmSimHelper.ViewModels"
              xmlns:conv="clr-namespace:FarmSimHelper.Converters"
-             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard" 
              Title="{Binding Title}"
              >
     <ContentPage.Resources>
@@ -80,24 +79,52 @@
             <StackLayout>
                 <Grid RowDefinitions="30,30,30" ColumnDefinitions="60,50,60,50,60,50" IsVisible="{Binding YieldBonusVisible}">
                     <Label Text="Fertilized 1" HorizontalTextAlignment="End"/>
-                    <Switch Grid.Column="1" IsToggled="{Binding YieldBonus.Fertilized1}"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding YieldBonus.Fertilized1}">
+                        <Switch.Behaviors>
+                            <xct:EventToCommandBehavior EventName="Toggled" Command="{Binding YieldBonusSelectCommand}"/>
+                        </Switch.Behaviors>
+                    </Switch>
                     <Label Grid.Row="1" Text="Fertilized 2" HorizontalTextAlignment="End"/>
-                    <Switch Grid.Column="1" Grid.Row="1" IsToggled="{Binding YieldBonus.Fertilized2}"/>
+                    <Switch Grid.Column="1" Grid.Row="1" IsToggled="{Binding YieldBonus.Fertilized2}">
+                        <Switch.Behaviors>
+                            <xct:EventToCommandBehavior EventName="Toggled" Command="{Binding YieldBonusSelectCommand}"/>
+                        </Switch.Behaviors>
+                    </Switch>
                     <Label Grid.Row="2" Text="Weeded" HorizontalTextAlignment="End"/>
-                    <Switch Grid.Column="1" Grid.Row="2" IsToggled="{Binding YieldBonus.Weeded}"/>
+                    <Switch Grid.Column="1" Grid.Row="2" IsToggled="{Binding YieldBonus.Weeded}">
+                        <Switch.Behaviors>
+                            <xct:EventToCommandBehavior EventName="Toggled" Command="{Binding YieldBonusSelectCommand}"/>
+                        </Switch.Behaviors>
+                    </Switch>
 
                     <Label Grid.Column="2" Text="Rolled" HorizontalTextAlignment="End"/>
-                    <Switch Grid.Column="3" IsToggled="{Binding YieldBonus.Rolled}"/>
+                    <Switch Grid.Column="3" IsToggled="{Binding YieldBonus.Rolled}">
+                        <Switch.Behaviors>
+                            <xct:EventToCommandBehavior EventName="Toggled" Command="{Binding YieldBonusSelectCommand}"/>
+                        </Switch.Behaviors>
+                    </Switch>
                     <Label Grid.Column="2" Grid.Row="1" Text="Limed" HorizontalTextAlignment="End"/>
-                    <Switch Grid.Column="3" Grid.Row="1" IsToggled="{Binding YieldBonus.Limed}"/>
+                    <Switch Grid.Column="3" Grid.Row="1" IsToggled="{Binding YieldBonus.Limed}">
+                        <Switch.Behaviors>
+                            <xct:EventToCommandBehavior EventName="Toggled" Command="{Binding YieldBonusSelectCommand}"/>
+                        </Switch.Behaviors>
+                    </Switch>
                     <Label Grid.Column="2" Grid.Row="2" Text="Plowed" HorizontalTextAlignment="End"/>
-                    <Switch Grid.Column="3" Grid.Row="2" IsToggled="{Binding YieldBonus.Plowed}"/>
+                    <Switch Grid.Column="3" Grid.Row="2" IsToggled="{Binding YieldBonus.Plowed}">
+                        <Switch.Behaviors>
+                            <xct:EventToCommandBehavior EventName="Toggled" Command="{Binding YieldBonusSelectCommand}"/>
+                        </Switch.Behaviors>
+                    </Switch>
 
                     <Label Grid.Column="4" Text="Mulched" HorizontalTextAlignment="End"/>
-                    <Switch Grid.Column="5" IsToggled="{Binding YieldBonus.Mulched}"/>
+                    <Switch Grid.Column="5" IsToggled="{Binding YieldBonus.Mulched}">
+                        <Switch.Behaviors>
+                            <xct:EventToCommandBehavior EventName="Toggled" Command="{Binding YieldBonusSelectCommand}"/>
+                        </Switch.Behaviors>
+                    </Switch>
                 </Grid>
-                <Button Text=". . ." Command="{Binding YieldBonusToggleCommand}"
-                        WidthRequest="50" HeightRequest="20" Padding="0,-5,0,0" Margin="0" FontAttributes="Bold"/>
+                <Button Text="{Binding TextSelectedYieldBonus}" Command="{Binding YieldBonusToggleCommand}" TextTransform="None"
+                        WidthRequest="50" HeightRequest="20" Padding="0,0,0,0" Margin="2,0,2,2" FontSize="10"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

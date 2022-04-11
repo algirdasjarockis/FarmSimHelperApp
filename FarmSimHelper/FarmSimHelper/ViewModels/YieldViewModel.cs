@@ -22,6 +22,7 @@ namespace FarmSimHelper.ViewModels
         string? textColumnLiters;
         string? textColumnLitersForFields;
         string? textFieldSelect;
+        string? textSelectedYieldBonus;
 
         public string? TextColumnLiters
         {
@@ -39,6 +40,12 @@ namespace FarmSimHelper.ViewModels
         {
             get { return textFieldSelect; }
             set { SetProperty(ref textFieldSelect, value); }
+        }
+
+        public string? TextSelectedYieldBonus
+        {
+            get { return textSelectedYieldBonus; }
+            set { SetProperty(ref textSelectedYieldBonus, value); }
         }
 
         public List<int> SelectedFields
@@ -59,6 +66,7 @@ namespace FarmSimHelper.ViewModels
         public ObservableCollection<FieldInfo> Fields { get; set; }
         public Command LoadItemsCommand { get; private set; }
         public Command FieldsSelectCommand { get; private set; }
+        public Command YieldBonusSelectCommand { get; private set; }
         public Command YieldBonusToggleCommand { get; private set; }
 
         public YieldViewModel(IDataLoader<ProductYieldInfo, SquareUnit> loader, SettingsViewModel vm)
@@ -73,9 +81,11 @@ namespace FarmSimHelper.ViewModels
             LoadItemsCommand = new Command(async () => await ExecuteLoadCommand());
             FieldsSelectCommand = new Command(ExecuteRecalculateCommand);
             YieldBonusToggleCommand = new Command(ExecuteYieldBonusToggleCommand);
+            YieldBonusSelectCommand = new Command(ExecuteYieldBonusSelectCommand);
 
             Title = "Yield information";
             TextFieldSelect = $"Select '{vm.SelectedMap}' fields";
+            TextSelectedYieldBonus = GetYieldBonusText(vm.Settings.YieldBonus);
             SetTextForColumns();
 
             WeakReferenceMessenger.Default.Register<SquareUnitChangedMessage>(this, (r, m) => ExecuteRecalculateCommand());
@@ -131,6 +141,12 @@ namespace FarmSimHelper.ViewModels
             }
         }
 
+        void ExecuteYieldBonusSelectCommand()
+        {
+            ExecuteRecalculateCommand();
+            TextSelectedYieldBonus = GetYieldBonusText(settingsViewModel.Settings.YieldBonus);
+        }
+
         void ExecuteYieldBonusToggleCommand()
         {
             YieldBonusVisible = !YieldBonusVisible;
@@ -149,6 +165,29 @@ namespace FarmSimHelper.ViewModels
 
             TextColumnLiters = "Liters/" + unit;
             TextColumnLitersForFields = $"Total {TextColumnLiters} for selected fields";
+        }
+
+        string GetYieldBonusText(YieldBonusSelections selectedBonus)
+        {
+            List<string> bonus = new List<string>();
+            int fertilized = (selectedBonus.Fertilized1 ? 1 : 0) + (selectedBonus.Fertilized2 ? 1 : 0);
+           
+            if (fertilized > 0)
+            {
+                bonus.Add($"Fertilized x{fertilized}");
+            }
+            if (selectedBonus.Weeded) { bonus.Add("Weeded"); }
+            if (selectedBonus.Limed) { bonus.Add("Limed"); }
+            if (selectedBonus.Plowed) { bonus.Add("Plowed"); }
+            if (selectedBonus.Rolled) { bonus.Add("Rolled"); }
+            if (selectedBonus.Mulched) { bonus.Add("Mulched"); }
+
+            if (bonus.Count <= 0)
+            {
+                bonus.Add("Select yield improvements");
+            }
+
+            return string.Join(", ", bonus);
         }
 
         public async void OnAppearing()
