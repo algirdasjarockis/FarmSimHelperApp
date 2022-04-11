@@ -16,6 +16,7 @@ namespace FarmSimHelper.ViewModels
         readonly IDataLoader<ProductYieldInfo, SquareUnit> yieldInfoLoader;
         readonly SettingsViewModel settingsViewModel;
         List<int> selectedFields;
+        bool yieldBonusVisible;
 
         // texts
         string? textColumnLiters;
@@ -46,10 +47,19 @@ namespace FarmSimHelper.ViewModels
             set { SetProperty(ref selectedFields, value); }
         }
 
+        public bool YieldBonusVisible
+        {
+            get { return yieldBonusVisible; }
+            set { SetProperty(ref yieldBonusVisible, value); }
+        }
+
+        public YieldBonusSelections YieldBonus { get { return settingsViewModel.Settings.YieldBonus; } }
+
         public ObservableCollection<ProductYieldInfo> Items { get; private set; }
         public ObservableCollection<FieldInfo> Fields { get; set; }
         public Command LoadItemsCommand { get; private set; }
         public Command FieldsSelectCommand { get; private set; }
+        public Command YieldBonusToggleCommand { get; private set; }
 
         public YieldViewModel(IDataLoader<ProductYieldInfo, SquareUnit> loader, SettingsViewModel vm)
         {
@@ -62,6 +72,7 @@ namespace FarmSimHelper.ViewModels
 
             LoadItemsCommand = new Command(async () => await ExecuteLoadCommand());
             FieldsSelectCommand = new Command(ExecuteRecalculateCommand);
+            YieldBonusToggleCommand = new Command(ExecuteYieldBonusToggleCommand);
 
             Title = "Yield information";
             TextFieldSelect = $"Select '{vm.SelectedMap}' fields";
@@ -117,6 +128,16 @@ namespace FarmSimHelper.ViewModels
                     ProductImage = Items[i].ProductImage,
                     Liters = Items[i].LitersPerSqm * totalFieldSize
                 };
+            }
+        }
+
+        void ExecuteYieldBonusToggleCommand()
+        {
+            YieldBonusVisible = !YieldBonusVisible;
+            if (!YieldBonusVisible)
+            {
+                // save selection of yield bonuses
+                SettingsService.SaveSettings(settingsViewModel.Settings);
             }
         }
 

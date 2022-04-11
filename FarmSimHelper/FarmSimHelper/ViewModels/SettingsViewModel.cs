@@ -22,10 +22,11 @@ namespace FarmSimHelper.ViewModels
         const string FieldDataUrl = @"https://raw.githubusercontent.com/algirdasjarockis/FarmSimHelperApp/master/data/fields_%mapName%.xml";
 #endif
 
-        IDataDownloader downloader;
-        IDataLoader<FieldInfo, string> fieldInfoLoader;
-        Settings settings;
+        readonly IDataDownloader downloader;
+        readonly IDataLoader<FieldInfo, string> fieldInfoLoader;
+        readonly Settings settings;
 
+        public Settings Settings { get { return settings; } }
         public string SelectedMap { get; set; }
         public SquareUnit SelectedUnit { get; set; }
         public List<string> Maps { get; private set; }

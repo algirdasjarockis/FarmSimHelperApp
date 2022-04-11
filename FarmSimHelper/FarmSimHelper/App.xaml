@@ -29,6 +29,10 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="11"></Setter>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+            </Style>
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

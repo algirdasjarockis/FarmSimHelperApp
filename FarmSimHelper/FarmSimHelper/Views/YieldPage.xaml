@@ -75,29 +75,30 @@
                         HeaderFontAttribute="Bold"
                         TextAlignment="Center" 
                         Width="110"/>
-                    <syncfusion:GridNumericColumn 
-                        MappingName="LitersPerSqm" HeaderText="{Binding TextColumnLiters}"
-                        DisplayBinding="{Binding LitersFieldOne}"
-                        IsHidden="True"
-                        HeaderFontAttribute="Bold"
-                        TextAlignment="Center" 
-                        Width="90"/>
-                    <syncfusion:GridNumericColumn 
-                        MappingName="LitersPerSqm" HeaderText="{Binding TextColumnLiters}"
-                        DisplayBinding="{Binding LitersFieldTwo}"
-                        IsHidden="True"
-                        HeaderFontAttribute="Bold"
-                        TextAlignment="Center" 
-                        Width="90"/>
-                    <syncfusion:GridNumericColumn 
-                        MappingName="LitersPerSqm" HeaderText="{Binding TextColumnLiters}"
-                        DisplayBinding="{Binding LitersFieldThree}"
-                        IsHidden="True"
-                        HeaderFontAttribute="Bold"
-                        TextAlignment="Center" 
-                        Width="90"/>
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
+            <StackLayout>
+                <Grid RowDefinitions="30,30,30" ColumnDefinitions="60,50,60,50,60,50" IsVisible="{Binding YieldBonusVisible}">
+                    <Label Text="Fertilized 1" HorizontalTextAlignment="End"/>
+                    <Switch Grid.Column="1" IsToggled="{Binding YieldBonus.Fertilized1}"/>
+                    <Label Grid.Row="1" Text="Fertilized 2" HorizontalTextAlignment="End"/>
+                    <Switch Grid.Column="1" Grid.Row="1" IsToggled="{Binding YieldBonus.Fertilized2}"/>
+                    <Label Grid.Row="2" Text="Weeded" HorizontalTextAlignment="End"/>
+                    <Switch Grid.Column="1" Grid.Row="2" IsToggled="{Binding YieldBonus.Weeded}"/>
+
+                    <Label Grid.Column="2" Text="Rolled" HorizontalTextAlignment="End"/>
+                    <Switch Grid.Column="3" IsToggled="{Binding YieldBonus.Rolled}"/>
+                    <Label Grid.Column="2" Grid.Row="1" Text="Limed" HorizontalTextAlignment="End"/>
+                    <Switch Grid.Column="3" Grid.Row="1" IsToggled="{Binding YieldBonus.Limed}"/>
+                    <Label Grid.Column="2" Grid.Row="2" Text="Plowed" HorizontalTextAlignment="End"/>
+                    <Switch Grid.Column="3" Grid.Row="2" IsToggled="{Binding YieldBonus.Plowed}"/>
+
+                    <Label Grid.Column="4" Text="Mulched" HorizontalTextAlignment="End"/>
+                    <Switch Grid.Column="5" IsToggled="{Binding YieldBonus.Mulched}"/>
+                </Grid>
+                <Button Text=". . ." Command="{Binding YieldBonusToggleCommand}"
+                        WidthRequest="50" HeightRequest="20" Padding="0,-5,0,0" Margin="0" FontAttributes="Bold"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
