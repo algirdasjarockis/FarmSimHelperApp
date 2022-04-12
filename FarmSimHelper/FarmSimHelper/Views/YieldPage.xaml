@@ -40,9 +40,8 @@
                 AutoGenerateColumns="False"
                 AllowSorting="True"
                 AllowResizingColumn="True"
-                ColumnSizer="Auto"
-                MinimumWidthRequest="600"
-                HorizontalOptions="CenterAndExpand">
+                ColumnSizer="Star"
+                HorizontalOptions="FillAndExpand">
                 <syncfusion:SfDataGrid.GridStyle>
                     <syncfusion:DefaultStyle 
                         HeaderBackgroundColor="{StaticResource Primary}" HeaderForegroundColor="White"                    
@@ -57,7 +56,7 @@
                         DisplayBinding="{Binding Product.Name, Converter={StaticResource productNameConverter}}"
                         HeaderFontAttribute="Bold"
                         CellTextSize="12" TextAlignment="End"
-                        Width="140"/>
+                        MinimumWidth="140"/>
                     <syncfusion:GridImageColumn
                         MappingName="ProductImage" HeaderText=""
                         Width="30"
@@ -67,13 +66,13 @@
                         DisplayBinding="{Binding LitersPerSqm, Converter={StaticResource yieldConverter}}"
                         HeaderFontAttribute="Bold"
                         TextAlignment="Center" 
-                        Width="90"/>
+                        MinimumWidth="90"/>
                     <syncfusion:GridNumericColumn 
                         MappingName="Liters" HeaderText="{Binding TextColumnLitersForFields}"
                         DisplayBinding="{Binding Liters, Converter={StaticResource yieldConverter}}"
                         HeaderFontAttribute="Bold"
                         TextAlignment="Center" 
-                        Width="110"/>
+                        MinimumWidth="110"/>
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
             <StackLayout>
