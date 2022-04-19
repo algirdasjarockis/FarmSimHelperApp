@@ -25,6 +25,8 @@ namespace FarmSimHelper.ViewModels
         readonly IDataDownloader downloader;
         readonly IDataLoader<FieldInfo, string> fieldInfoLoader;
         readonly Settings settings;
+        float downloadProgressValue = 0.0f;
+        bool downloadDone = false;
 
         public Settings Settings { get { return settings; } }
         public string SelectedMap { get; set; }
@@ -32,6 +34,16 @@ namespace FarmSimHelper.ViewModels
         public List<string> Maps { get; private set; }
         public List<FieldInfo> Fields { get; private set; }
         public List<SquareUnit> Units { get; private set; }
+        public float DownloadProgressValue 
+        { 
+            get { return downloadProgressValue; } 
+            set { SetProperty(ref downloadProgressValue, value); } 
+        }
+        public bool DownloadDone
+        {
+            get { return downloadDone; }
+            set { SetProperty(ref downloadDone, value); }
+        }
 
         public Command DownloadDataCommand { get; private set; }
         public Command UnitChangeCommand { get; private set; }
@@ -77,16 +89,28 @@ namespace FarmSimHelper.ViewModels
 
         async void ExecuteDownloadCommand()
         {
+            IsBusy = true;
+            DownloadProgressValue = 0.0f;
+            DownloadDone = false;
+            float total = Settings.Maps.Count + 2;
+            float downloaded = 2;
+
             await downloader.DownloadFile(ProductDataUrl, App.Config.DataPathProducts);
             await downloader.DownloadFile(YieldDataUrl, App.Config.DataPathYield);
 
+            DownloadProgressValue = downloaded / total;
             foreach (var mapName in Settings.Maps)
             {
                 await downloader.DownloadFile(
                     FieldDataUrl.Replace("%mapName%", mapName.ToLower()), 
                     App.Config.GetDataPathFields(mapName)
                 );
+
+                DownloadProgressValue = ++downloaded / total;
             }
+
+            IsBusy = false;
+            DownloadDone = true;
         }
     }
 }

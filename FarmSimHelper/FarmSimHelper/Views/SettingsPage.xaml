@@ -4,6 +4,12 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
              xmlns:vm="clr-namespace:FarmSimHelper.ViewModels" x:DataType="vm:SettingsViewModel"
              x:Class="FarmSimHelper.Views.SettingsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout>
             <Grid
@@ -25,10 +31,16 @@
                     </Picker.Behaviors>
                 </Picker>
             </Grid>
-            <Button Text="Load Data" VerticalOptions="EndAndExpand" Margin="18,5,18,2"
-                    Command="{Binding DownloadDataCommand}"/>
-            <Label FontSize="12" HorizontalTextAlignment="Center" 
-                Text="By pressing this button you will download multiple XML files into your storage. XML files contain various data of products, yield and fields" HorizontalOptions="CenterAndExpand"/>
+
+            <StackLayout Orientation="Vertical" VerticalOptions="EndAndExpand">
+                <Label FontSize="12" HorizontalTextAlignment="Center"
+                    Text="All data successfully downloaded" IsVisible="{Binding DownloadDone}"/>
+                <ProgressBar Progress="{Binding DownloadProgressValue}" IsVisible="{Binding IsBusy}"/>
+                <Button Text="Load Data" VerticalOptions="EndAndExpand" Margin="18,5,18,2"
+                    Command="{Binding DownloadDataCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}"/>
+                <Label FontSize="12" HorizontalTextAlignment="Center" 
+                    Text="By pressing this button you will download multiple XML files into your storage. XML files contain various data of products, yield and fields" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
