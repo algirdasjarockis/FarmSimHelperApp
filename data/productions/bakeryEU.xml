@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<productions sharedThroughputCapacity="false">
+  <production id="bread" name="$l10n_fillType_bread" cyclesPerHour="90" costsPerActiveHour="2.5">
+    <inputs>
+      <input fillType="FLOUR" amount="2" />
+    </inputs>
+    <outputs>
+      <output fillType="BREAD" amount="1" />
+    </outputs>
+  </production>
+  <production id="cake" name="$l10n_fillType_cake" cyclesPerHour="8" costsPerActiveHour="2.5">
+    <inputs>
+      <input fillType="FLOUR" amount="2" />
+      <input fillType="SUGAR" amount="2" />
+      <input fillType="MILK" amount="2" />
+      <input fillType="EGG" amount="2" />
+      <input fillType="BUTTER" amount="2" />
+      <input fillType="STRAWBERRY" amount="2" />
+    </inputs>
+    <outputs>
+      <output fillType="CAKE" amount="5" />
+    </outputs>
+  </production>
+</productions>

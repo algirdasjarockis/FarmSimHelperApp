@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<productions>
+  <production id="fabric_wool" name="%s %s" params="$l10n_fillType_fabric|$l10n_fillType_wool" cyclesPerHour="60" costsPerActiveHour="5">
+    <inputs>
+      <input fillType="WOOL" amount="2" />
+    </inputs>
+    <outputs>
+      <output fillType="FABRIC" amount="1" />
+    </outputs>
+  </production>
+  <production id="fabric_cotton" name="%s %s" params="$l10n_fillType_fabric|$l10n_fillType_cotton" cyclesPerHour="24" costsPerActiveHour="5">
+    <inputs>
+      <input fillType="COTTON" amount="5" />
+    </inputs>
+    <outputs>
+      <output fillType="FABRIC" amount="3" />
+    </outputs>
+  </production>
+</productions>

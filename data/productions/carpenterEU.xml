@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<productions>
+  <production id="furnitureWood" name="%s (%s)" params="$l10n_fillType_furniture|$l10n_fillType_wood" cyclesPerHour="9" costsPerActiveHour="3">
+    <inputs>
+      <input fillType="WOOD" amount="4" />
+    </inputs>
+    <outputs>
+      <output fillType="FURNITURE" amount="5" />
+      <output fillType="WOODCHIPS" amount="0.15" />
+    </outputs>
+  </production>
+  <production id="furnitureBoards" name="%s (%s)" params="$l10n_fillType_furniture|$l10n_fillType_boards" cyclesPerHour="10" costsPerActiveHour="3">
+    <inputs>
+      <input fillType="BOARDS" amount="5" />
+    </inputs>
+    <outputs>
+      <output fillType="FURNITURE" amount="7" />
+      <output fillType="WOODCHIPS" amount="0.1" />
+    </outputs>
+  </production>
+</productions>

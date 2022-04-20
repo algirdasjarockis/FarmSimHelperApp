@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<productions sharedThroughputCapacity="false">
+  <production id="flourWheat" name="%s %s" params="$l10n_fillType_wheat|$l10n_fillType_flour" cyclesPerHour="150" costsPerActiveHour="1">
+    <inputs>
+      <input fillType="WHEAT" amount="5" />
+    </inputs>
+    <outputs>
+      <output fillType="FLOUR" amount="4" />
+    </outputs>
+  </production>
+  <production id="flourBarley" name="%s %s" params="$l10n_fillType_barley|$l10n_fillType_flour" cyclesPerHour="25" costsPerActiveHour="1">
+    <inputs>
+      <input fillType="BARLEY" amount="30" />
+    </inputs>
+    <outputs>
+      <output fillType="FLOUR" amount="23" />
+    </outputs>
+  </production>
+  <production id="flourOat" name="%s %s" params="$l10n_fillType_oat|$l10n_fillType_flour" cyclesPerHour="50" costsPerActiveHour="1">
+    <inputs>
+      <input fillType="OAT" amount="15" />
+    </inputs>
+    <outputs>
+      <output fillType="FLOUR" amount="19" />
+    </outputs>
+  </production>
+  <production id="flourSorghum" name="%s %s" params="$l10n_fillType_sorghum|$l10n_fillType_flour" cyclesPerHour="50" costsPerActiveHour="1">
+    <inputs>
+      <input fillType="SORGHUM" amount="15" />
+    </inputs>
+    <outputs>
+      <output fillType="FLOUR" amount="16" />
+    </outputs>
+  </production>
+</productions>

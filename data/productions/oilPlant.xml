@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<productions>
+  <production id="sunflower_oil" name="$l10n_fillType_sunflowerOil" cyclesPerHour="200" costsPerActiveHour="2.5">
+    <inputs>
+      <input fillType="SUNFLOWER" amount="2" />
+    </inputs>
+    <outputs>
+      <output fillType="SUNFLOWER_OIL" amount="1" />
+    </outputs>
+  </production>
+  <production id="canola_oil" name="$l10n_fillType_canolaOil" cyclesPerHour="200" costsPerActiveHour="2.5">
+    <inputs>
+      <input fillType="CANOLA" amount="2" />
+    </inputs>
+    <outputs>
+      <output fillType="CANOLA_OIL" amount="1" />
+    </outputs>
+  </production>
+  <production id="olive_oil" name="$l10n_fillType_oliveOil" cyclesPerHour="100" costsPerActiveHour="2.5">
+    <inputs>
+      <input fillType="OLIVE" amount="2" />
+    </inputs>
+    <outputs>
+      <output fillType="OLIVE_OIL" amount="1" />
+    </outputs>
+  </production>
+</productions>

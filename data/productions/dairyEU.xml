@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<productions>
+  <production id="butter" name="$l10n_fillType_butter" cyclesPerHour="20" costsPerActiveHour="1">
+    <inputs>
+      <input fillType="MILK" amount="15" />
+    </inputs>
+    <outputs>
+      <output fillType="BUTTER" amount="13" />
+    </outputs>
+  </production>
+  <production id="cheese" name="$l10n_fillType_cheese" cyclesPerHour="50" costsPerActiveHour="1">
+    <inputs>
+      <input fillType="MILK" amount="3" />
+    </inputs>
+    <outputs>
+      <output fillType="CHEESE" amount="2" />
+    </outputs>
+  </production>
+  <production id="chocolate" name="$l10n_fillType_chocolate" cyclesPerHour="100" costsPerActiveHour="1">
+    <inputs>
+      <input fillType="MILK" amount="1" />
+      <input fillType="SUGAR" amount="1" />
+    </inputs>
+    <outputs>
+      <output fillType="CHOCOLATE" amount="1" />
+    </outputs>
+  </production>
+</productions>

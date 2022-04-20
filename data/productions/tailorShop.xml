@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<productions>
+  <production id="clothes" name="$l10n_fillType_clothes" cyclesPerHour="45" costsPerActiveHour="10">
+    <inputs>
+      <input fillType="FABRIC" amount="2" />
+    </inputs>
+    <outputs>
+      <output fillType="CLOTHES" amount="1" />
+    </outputs>
+  </production>
+</productions>

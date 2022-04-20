@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<productions>
+  <production id="cereal" name="$l10n_fillType_cereal" cyclesPerHour="90" costsPerActiveHour="5">
+    <inputs>
+      <input fillType="HONEY" amount="1" />
+      <input fillType="RAISINS" amount="1" />
+      <input fillType="OAT" amount="2" />
+      <input fillType="MAIZE" amount="2" />
+    </inputs>
+    <outputs>
+      <output fillType="CEREAL" amount="2" />
+    </outputs>
+  </production>
+</productions>
