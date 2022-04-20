@@ -23,6 +23,7 @@ namespace FarmSimHelper
             public static string DataRoot => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             public static string DataPathProducts => Path.Combine(DataRoot, "fillTypes.xml");
             public static string DataPathYield => Path.Combine(DataRoot, "fruitTypes.xml");
+            public static string DataPathProductions => Path.Combine(DataRoot, "productions");
             public static Settings Settings;
 
             public static string GetDataPathFields(string mapName)
