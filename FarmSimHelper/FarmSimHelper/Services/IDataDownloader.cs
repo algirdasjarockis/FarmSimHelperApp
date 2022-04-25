@@ -7,6 +7,6 @@ namespace FarmSimHelper.Services
 {
     public interface IDataDownloader
     {
-        Task DownloadFile(string url, string targetPath);
+        Task<bool> DownloadFile(string url, string targetPath);
     }
 }

@@ -33,6 +33,8 @@
             </Grid>
 
             <StackLayout Orientation="Vertical" VerticalOptions="EndAndExpand">
+                <Label FontSize="15" TextColor="Red" HorizontalTextAlignment="Center"
+                    Text="Error while downloading data. Please try again" IsVisible="{Binding DownloadFailed}"/>
                 <Label FontSize="12" HorizontalTextAlignment="Center"
                     Text="All data successfully downloaded" IsVisible="{Binding DownloadDone}"/>
                 <ProgressBar Progress="{Binding DownloadProgressValue}" IsVisible="{Binding IsBusy}"/>

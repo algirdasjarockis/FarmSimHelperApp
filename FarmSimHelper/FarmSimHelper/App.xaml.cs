@@ -30,6 +30,11 @@ namespace FarmSimHelper
             {
                 return Path.Combine(DataRoot, $"fields_{mapName.ToLower()}.xml");
             }
+
+            public static string GetDataPathProductions(string productionId)
+            {
+                return Path.Combine(DataRoot, $"productions/{productionId}.xml");
+            }
         }
 
         public App()
@@ -49,6 +54,12 @@ namespace FarmSimHelper
             builder.RegisterType<FieldInfoLoader>().As<IDataLoader<FieldInfo, string>>();
             builder.RegisterType<DataDownloader>().As<IDataDownloader>();
             builder.RegisterType<HttpClient>();
+
+            builder.Register(c => { 
+                var client = new HttpClient(); 
+                client.Timeout = TimeSpan.FromSeconds(3);
+                return client; 
+            }).As<HttpClient>();
 
             // viewmodels
             builder.RegisterType<PricesViewModel>().SingleInstance();

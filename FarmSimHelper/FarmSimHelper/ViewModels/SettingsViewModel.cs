@@ -13,20 +13,20 @@ namespace FarmSimHelper.ViewModels
     public class SettingsViewModel : BaseViewModel
     {
 #if DEBUG
-        const string ProductDataUrl = @"http://10.0.2.2:8000/fillTypes.xml";
-        const string YieldDataUrl = @"http://10.0.2.2:8000/fruitTypes.xml";
-        const string FieldDataUrl = @"http://10.0.2.2:8000/fields_%mapName%.xml";
+        const string BaseUrl = @"http://10.0.2.2:8000";
 #else
-        const string ProductDataUrl = @"https://raw.githubusercontent.com/algirdasjarockis/FarmSimHelperApp/master/data/fillTypes.xml";
-        const string YieldDataUrl = @"https://raw.githubusercontent.com/algirdasjarockis/FarmSimHelperApp/master/data/fruitTypes.xml";
-        const string FieldDataUrl = @"https://raw.githubusercontent.com/algirdasjarockis/FarmSimHelperApp/master/data/fields_%mapName%.xml";
+        const string BaseUrl = @"https://raw.githubusercontent.com/algirdasjarockis/FarmSimHelperApp/master/data";
 #endif
+        const string FieldDataUrl = BaseUrl + @"/fields_%mapName%.xml";
+        const string ProductionDataUrl = BaseUrl + @"/productions/%production%.xml";
 
         readonly IDataDownloader downloader;
         readonly IDataLoader<FieldInfo, string> fieldInfoLoader;
         readonly Settings settings;
         float downloadProgressValue = 0.0f;
         bool downloadDone = false;
+        bool downloadFailed = false;
+        List<string[]> dataLocations;
 
         public Settings Settings { get { return settings; } }
         public string SelectedMap { get; set; }
@@ -43,6 +43,11 @@ namespace FarmSimHelper.ViewModels
         {
             get { return downloadDone; }
             set { SetProperty(ref downloadDone, value); }
+        }
+        public bool DownloadFailed
+        {
+            get { return downloadFailed; }
+            set { SetProperty(ref downloadFailed, value); }
         }
 
         public Command DownloadDataCommand { get; private set; }
@@ -65,6 +70,35 @@ namespace FarmSimHelper.ViewModels
             UnitChangeCommand = new Command(ExecuteUnitChangeCommand);
             MapChangeCommand = new Command(ExecuteMapChangeCommand);
             DownloadDataCommand= new Command(ExecuteDownloadCommand);
+
+            dataLocations = new List<string[]>()
+            {
+                // from, to
+                { new string[2] { BaseUrl + "/fillTypes.xml", App.Config.DataPathProducts } },
+                { new string[2] { BaseUrl + "/fruitTypes.xml", App.Config.DataPathYield } },
+            };
+
+            foreach (var mapName in Settings.Maps)
+            {
+                var mapLocations = new string[2]
+                {
+                    FieldDataUrl.Replace("%mapName%", mapName.ToLower()),
+                    App.Config.GetDataPathFields(mapName)
+                };
+
+                dataLocations.Add(mapLocations);
+            }
+
+            foreach (var production in Settings.Productions)
+            {
+                var prodLocations = new string[2]
+                {
+                    ProductionDataUrl.Replace("%production%", production),
+                    App.Config.GetDataPathProductions(production)
+                };
+
+                dataLocations.Add(prodLocations);
+            }
         }
 
         void ExecuteUnitChangeCommand()
@@ -92,25 +126,25 @@ namespace FarmSimHelper.ViewModels
             IsBusy = true;
             DownloadProgressValue = 0.0f;
             DownloadDone = false;
-            float total = Settings.Maps.Count + 2;
-            float downloaded = 2;
+            DownloadFailed = false;
 
-            await downloader.DownloadFile(ProductDataUrl, App.Config.DataPathProducts);
-            await downloader.DownloadFile(YieldDataUrl, App.Config.DataPathYield);
+            float total = dataLocations.Count;
+            float downloaded = 0;
 
-            DownloadProgressValue = downloaded / total;
-            foreach (var mapName in Settings.Maps)
+            foreach (var location in dataLocations)
             {
-                await downloader.DownloadFile(
-                    FieldDataUrl.Replace("%mapName%", mapName.ToLower()), 
-                    App.Config.GetDataPathFields(mapName)
-                );
+                DownloadFailed = !await downloader.DownloadFile(location[0], location[1]);
+
+                if (DownloadFailed)
+                {
+                    break;
+                }
 
                 DownloadProgressValue = ++downloaded / total;
             }
 
             IsBusy = false;
-            DownloadDone = true;
+            DownloadDone = !DownloadFailed;
         }
     }
 }

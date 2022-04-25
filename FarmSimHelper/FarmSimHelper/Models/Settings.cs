@@ -21,6 +21,19 @@ namespace FarmSimHelper.Models
             "Erlengrat",
             "Beyleron"
         };
+        public static List<string> Productions => new List<string>()
+        {
+            "bakeryEU",
+            "cerealFactory",
+            "grainMill",
+            "raisinFactory",
+            "spinneryEU",
+            "tailorShop",
+            "carpenterEU",
+            "dairyEU",
+            "oilPlant",
+            "sugarMill"
+        };
         public YieldBonusSelections YieldBonus { get; set; }
 
         public Settings()

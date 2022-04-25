@@ -16,19 +16,30 @@ namespace FarmSimHelper.Services
             this.client = client;
         }
 
-        public async Task DownloadFile(string url, string targetPath)
+        public async Task<bool> DownloadFile(string url, string targetPath)
         {
-            HttpResponseMessage response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                Directory.CreateDirectory(Path.GetDirectoryName(targetPath));
 
-            var sourceStream = await client.GetStreamAsync(url);
-            var writer = File.OpenWrite(targetPath);
+                var sourceStream = await client.GetStreamAsync(url);
+                var writer = File.OpenWrite(targetPath);
 
-            await sourceStream.CopyToAsync(writer);
-            await writer.FlushAsync();
-            writer.Close();
+                await sourceStream.CopyToAsync(writer);
+                await writer.FlushAsync();
+                writer.Close();
 
-            Console.WriteLine($" -- Downloaded '{url}' to '{targetPath}'");
+                Console.WriteLine($" -- Downloaded '{url}' to '{targetPath}'");
+            } 
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
         }
     }
 }
