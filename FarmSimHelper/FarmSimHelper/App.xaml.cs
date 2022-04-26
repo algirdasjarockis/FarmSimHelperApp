@@ -114,9 +114,17 @@ namespace FarmSimHelper
                 return false;
             }
 
-            foreach (var file in Settings.Maps)
+            foreach (var map in Settings.Maps)
             {
-                if (!File.Exists(Config.GetDataPathFields(file)))
+                if (!File.Exists(Config.GetDataPathFields(map)))
+                {
+                    return false;
+                }
+            }
+
+            foreach (var production in Settings.Productions)
+            {
+                if (!File.Exists(Config.GetDataPathProductions(production)))
                 {
                     return false;
                 }

@@ -20,19 +20,57 @@ namespace FarmSimHelper.Services
                 return items;
             }
 
-            XDocument xmlDoc = XDocument.Load(App.Config.DataPathYield);
-            var query =
-                from c in xmlDoc.Root.Descendants("production")
-                select new
+            foreach (var production in Settings.Productions)
+            {
+                string fileSource = App.Config.GetDataPathProductions(production);
+
+                XDocument xmlDoc = XDocument.Load(fileSource);
+                var query =
+                    from c in xmlDoc.Root.Descendants("production")
+                    select new
+                    {
+                        ProductionName = production,
+                        ProductId = c.Attribute("id").Value,
+                        Cycles = int.Parse(c.Attribute("cyclesPerHour").Value),
+                        Costs = float.Parse(c.Attribute("costsPerActiveHour").Value),
+                        Inputs = c.Element("inputs").Descendants("input"),
+                        Outputs = c.Element("outputs").Descendants("output")
+                    };
+
+                foreach (var element in query)
                 {
-                    ProductionName = c.Attribute("id").Value,
-                    Cycles = int.Parse(c.Attribute("cyclesPerHour").Value),
-                    Costs = float.Parse(c.Attribute("costsPerActiveHour").Value),
-                    Inputs = c.Descendants("inputs"),
-                    Outputs = c.Descendants("outputs"),
-                };
+                    ProductionInfo item = new ProductionInfo()
+                    {
+                        Id = element.ProductionName,
+                        CyclesPerHour = element.Cycles,
+                        Costs = element.Costs,
+                        MainOutputProduct = element.ProductId
+                    };
+
+                    foreach (var input in element.Inputs)
+                    {
+                        item.Inputs.Add(ParseProductionItem(input));
+                    }
+
+                    foreach (var output in element.Outputs)
+                    {
+                        item.Outputs.Add(ParseProductionItem(output));
+                    }
+
+                    items.Add(item);
+                }
+            }
 
             return items;
+        }
+
+        ProductionItem ParseProductionItem(XElement element)
+        {
+            return new ProductionItem()
+            {
+                Name = element.Attribute("fillType").Value,
+                Amount = float.Parse(element.Attribute("amount").Value)
+            };
         }
     }
 }

@@ -6,10 +6,10 @@ namespace FarmSimHelper.Models
 {
     public class ProductionItem
     {
-        string Name { get; set; }
-        float Amount { get; set; }
+        public string Name { get; set; }
+        public float Amount { get; set; }
 
-        ProductionItem()
+        public ProductionItem()
         {
             Name = "";
             Amount = 0.0f;

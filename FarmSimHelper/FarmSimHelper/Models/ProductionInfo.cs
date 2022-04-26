@@ -6,17 +6,19 @@ namespace FarmSimHelper.Models
 {
     public class ProductionInfo
     {
-        string Id { get; set; }
-        int CyclesPerHour { get; set; }
-        float Costs { get; set; }
-        List<ProductionItem> Inputs { get; set; }
-        List<ProductionItem> Outputs { get; set; }
+        public string Id { get; set; }
+        public int CyclesPerHour { get; set; }
+        public float Costs { get; set; }
+        public string MainOutputProduct { get; set; }
+        public List<ProductionItem> Inputs { get; set; }
+        public List<ProductionItem> Outputs { get; set; }
 
-        ProductionInfo()
+        public ProductionInfo()
         {
             Id = string.Empty;
             CyclesPerHour = 0;
             Costs = 0;
+            MainOutputProduct = string.Empty;
             Inputs = new List<ProductionItem>();
             Outputs = new List<ProductionItem>();
         }
