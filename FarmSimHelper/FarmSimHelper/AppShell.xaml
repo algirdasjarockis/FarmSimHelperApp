@@ -105,6 +105,17 @@
         <Shell.ItemTemplate>
             <DataTemplate>
                 <Grid RowDefinitions="30" ColumnDefinitions="45,*" Padding="20">
+                    <Label Text="&#xf275;" FontFamily="FontAwesome" VerticalTextAlignment="Center" FontSize="20" TextColor="Red"/>
+                    <Label Grid.Column="1" Text="Productions" VerticalTextAlignment="Center" FontSize="18"/>
+                </Grid>
+            </DataTemplate>
+        </Shell.ItemTemplate>
+        <ShellContent Route="YieldViewModel" ContentTemplate="{DataTemplate local:ProductionsPage}" />
+    </FlyoutItem>
+    <FlyoutItem>
+        <Shell.ItemTemplate>
+            <DataTemplate>
+                <Grid RowDefinitions="30" ColumnDefinitions="45,*" Padding="20">
                     <Label Text="&#xf085;" FontFamily="FontAwesome" VerticalTextAlignment="Center" FontSize="20" TextColor="Black"/>
                     <Label Grid.Column="1" Text="Settings" VerticalTextAlignment="Center" FontSize="18"/>
                 </Grid>

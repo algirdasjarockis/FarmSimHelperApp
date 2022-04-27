@@ -52,6 +52,7 @@ namespace FarmSimHelper
             builder.RegisterType<SellPriceLoader>().As<ISellPriceLoader>();
             builder.RegisterType<YieldInfoLoader>().As<IDataLoader<ProductYieldInfo, SquareUnit>>();
             builder.RegisterType<FieldInfoLoader>().As<IDataLoader<FieldInfo, string>>();
+            builder.RegisterType<ProductionInfoLoader>().As<IDataLoader<ProductionInfo, int>>();
             builder.RegisterType<DataDownloader>().As<IDataDownloader>();
             builder.RegisterType<HttpClient>();
 
@@ -65,6 +66,7 @@ namespace FarmSimHelper
             builder.RegisterType<PricesViewModel>().SingleInstance();
             builder.RegisterType<YieldViewModel>().SingleInstance();
             builder.RegisterType<SettingsViewModel>().SingleInstance();
+            builder.RegisterType<ProductionsViewModel>().SingleInstance();
 
             // custom stuff
             builder.Register(c => Config.Settings).As<Settings>().SingleInstance();
